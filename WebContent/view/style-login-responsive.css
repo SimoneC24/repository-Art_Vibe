@@ -1,0 +1,241 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to top, teal, teal, black);
+    background-repeat: no-repeat;
+}
+
+.login-section {
+	max-width: 100%;
+    display: flex;
+    margin: 20px 220px 20px 220px;
+}
+
+.left-container {
+    flex: 1;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    margin-right: 10px;
+}
+
+.right-container {
+    flex: 1;
+    padding: 20px;
+    background: linear-gradient(to right, teal, black);
+    color: white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Italic;
+    border-radius: 20px;
+    margin-left:10px;
+}
+
+.intern-right-container {
+	max-width:100%;
+	padding: 50px;
+}
+
+.left-container a{
+	text-decoration: none;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.button-margin{
+	margin-bottom: 60px;
+}
+
+.button {
+    display: inline-block;
+    color: #fff; 
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    white-space: nowrap;
+    padding: 8px 20px;
+    background-color: #008080;
+}
+
+.button:hover {
+    color: black;
+  	background-color: white;
+}
+
+form {
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+form p {
+    text-align: center;
+}
+
+form div {
+    margin-bottom: 20px;
+}
+
+form input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+form button {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: teal;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.footer {
+    background: linear-gradient(to bottom, teal, black);
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-section{
+	display: flex;
+	margin-bottom: 50px;
+}
+
+.footer-section-intern {
+    flex-direction: column; /* Imposta la direzione dei figli come colonna */
+    flex: 1; /* Assicura che i div si espandano per riempire lo spazio */
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0; /* Rimuovi il margine predefinito */
+}
+
+.footer-section ul li {
+    margin-bottom: 5px;
+}
+
+.footer-section ul li a {
+    text-decoration: none;
+    color: white;
+}
+
+.footer-section ul li a:hover{
+	color: #888888;
+}
+
+#footer {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+
+/* Stili per dispositivi di dimensioni ridotte */
+
+@media screen and (max-width: 1200px) {
+    .login-section {
+        flex-direction: column;
+        margin: 20px;
+    }
+
+    .left-container, .right-container {
+        flex: none;
+        width: auto;
+        padding: 20px;
+        margin-bottom: 20px;
+        margin-right: 100px;
+        margin-left: 100px;
+    }
+
+    .right-container {
+        text-align: left;
+    }
+
+    .intern-right-container {
+        padding: 20px;
+    }
+
+    .button {
+        width: auto;
+    }
+
+    form {
+        max-width: none;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .login-section {
+        flex-direction: column;
+        margin: 20px;
+    }
+
+    .left-container, .right-container {
+        flex: none;
+        width: auto;
+        padding: 20px;
+        margin-right: 20px;
+        margin-left: 20px;
+    }
+
+    .right-container {
+        text-align: left;
+    }
+
+    .intern-right-container {
+        padding: 20px;
+    }
+
+    .button {
+        width: auto;
+    }
+
+    form {
+        max-width: none;
+    }
+}
+
+
+/* Per schermi ancora più piccoli, ad esempio dispositivi mobili */
+@media screen and (max-width: 480px) {
+    .left-container, .right-container {
+        padding: 10px;
+    }
+
+    .button {
+        padding: 8px 10px;
+    }
+
+    form input, form button {
+        padding: 8px;
+    }
+}
+
+/*
+section {
+    border: 2px solid #ccc;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+div {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+}*/
