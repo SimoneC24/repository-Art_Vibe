@@ -5,28 +5,31 @@
 <head>
 <meta charset="UTF-8">
 <title>Login Art Vibe</title>
-<link rel="stylesheet" type="text/css" href="style-login-responsive.css">
+<link rel="stylesheet" type="text/css" href="${ pageContext.request.contextPath }\css\style-login-responsive.css">
 </head>
 
 <body>
 
-	<section class="login-section">
+	<%@include file = "navbar.jsp" %>
+
+	<section class="section">
 
 		<div class="left-container">
 			<div class="text-center">
-				<img src="${ pageContext.request.contextPath }\img\Logo_ArtVibe.png" style="width: 185px;" alt="logo">
+				<img src="${ pageContext.request.contextPath }\img\logo.png" style="width: 185px;" alt="logo">
 				<h4>We are The Art Vibe Team</h4>
 			</div>
 
-			<form method="POST" action="${ pageContext.request.contextPath }/login">
+
+			<form class="form" method="POST" action="${ pageContext.request.contextPath }/login">
 				<p>Please login to your account</p>
 				<div>
-					<input type="email" name="username" placeholder="Phone number or email address" />
-					<label>Username</label>
+					<input type="email" name="username" placeholder="Inserisci la tua e-mail" />
+					<label>E-mail</label>
 				</div>
 
 				<div>
-					<input type="password" name="pwd" placeholder="Password" /> <label>Password</label>
+					<input type="password" name="pwd" placeholder="Inserisci la tua password" /> <label>Password</label>
 				</div>
 
 				<div class="button-margin">
@@ -38,7 +41,7 @@
 				</div>
 
 				<div class="button-margin">
-					<a href="registrazione-responsive.html" class="button">Create new</a>
+					<a href="registrazione.jsp" class="button">Create new</a>
 				</div>
 
 			</form>
@@ -60,31 +63,8 @@
 			</div>
 		</div>
 	</section>
+	
+	<%@ include file="footer.jsp" %>
 
-	<footer class="footer">
-		<div class="footer-section">
-			<div class="footer-section-intern">
-				<h3>Altro</h3>
-				<ul>
-					<li><a href="#">Chi siamo</a></li>
-					<li><a href="#">Lavora con noi</a></li>
-					<li><a href="#">Termini e condizioni</a></li>
-					<li><a href="#">Privacy Policy</a></li>
-				</ul>
-			</div>
-
-			<div class="footer-section-intern">
-				<h3>Seguici su</h3>
-				<ul>
-					<li><a href="https://www.instagram.com/cava_simone/">Instagram</a></li>
-					<li><a
-						href="https://www.linkedin.com/in/simone-cava-347100279/">LinkedIn</a></li>
-				</ul>
-			</div>
-		</div>
-
-		<p id="footer">&copy; 2024 Art Vibe. Tutti i diritti riservati.
-			Realizzato con passione da Simone Cava</p>
-	</footer>
 </body>
 </html>

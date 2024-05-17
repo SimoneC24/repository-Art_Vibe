@@ -1,0 +1,392 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: white;
+    background-repeat: no-repeat;
+}
+
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: linear-gradient(to right, #007a8e, #00292d, black);
+    color: #fff;
+}
+
+.search-bar {
+    flex: 1;
+    display: flex; /* Imposta la visualizzazione dei figli in linea */
+    margin: 0 20px;
+}
+
+.search-bar input {
+    flex: 1; /* Fai espandere l'input per occupare tutto lo spazio disponibile */
+    padding: 8px;
+    border: none;
+    border-radius: 5px 0 0 5px; /* Angoli arrotondati solo a sinistra */
+    font-size: 16px;
+}
+
+.search-bar button {
+    padding: 8px 15px;
+    background-color: #8100f4;
+    border: none;
+    border-radius: 0 5px 5px 0; /* Angoli arrotondati solo a destra */
+    color: #fff;
+    cursor: pointer;
+}
+
+.logo{
+	padding: 2px;
+}
+
+.logo:hover {
+    border: 1px solid #000000; /* Cambia il colore e la larghezza del bordo a tuo piacimento */
+}
+
+.links a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 5px 5px 5px;
+}
+
+.links a:hover {
+     border: 1px solid #fff;
+}
+
+.section {
+	max-width: 100%;
+    display: flex;
+    margin: 20px 220px 20px 220px;
+}
+
+.left-container {
+    flex: 1;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 20px;
+    margin-right: 10px;
+}
+
+.right-container {
+    flex: 1;
+    padding: 20px;
+    background: linear-gradient(to right, #007a8e, black);
+    color: white;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Italic;
+    border-radius: 20px;
+    margin-left:10px;
+}
+
+.intern-right-container {
+	max-width:100%;
+	padding: 50px;
+}
+
+.left-container a{
+	text-decoration: none;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.button-margin{
+	margin-bottom: 60px;
+}
+
+.button {
+    display: inline-block;
+    color: #fff; 
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+    white-space: nowrap;
+    padding: 8px 20px;
+    background-color: #8100f4;
+}
+
+.button:hover {
+    color: black;
+  	background-color: white;
+}
+
+.form{
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.form p {
+    text-align: center;
+}
+
+.form div {
+    margin-bottom: 20px;
+}
+
+.form input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.form button {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: #007171;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+
+
+.footer {
+    background: linear-gradient(to bottom, #007a8e, black);
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-section{
+	display: flex;
+	margin-bottom: 50px;
+}
+
+.footer-section-intern {
+    flex-direction: column; /* Imposta la direzione dei figli come colonna */
+    flex: 1; /* Assicura che i div si espandano per riempire lo spazio */
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0; /* Rimuovi il margine predefinito */
+}
+
+.footer-section ul li {
+    margin-bottom: 5px;
+}
+
+.footer-section ul li a {
+    text-decoration: none;
+    color: white;
+}
+
+.footer-section ul li a:hover{
+	color: #888888;
+}
+
+#footer {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+
+.registrazione-section {
+	max-width: 100%;
+    display: flex;
+    margin: 20px 250px 20px 250px;
+}
+
+.container {
+    flex: 1;
+    padding: 20px;
+    background: #007a8e;
+    border-radius: 30px;
+}
+
+.container a{
+	text-decoration: none;
+}
+
+.button-registrati{
+	margin-bottom:60px;
+	float: right;
+}
+
+.button-torna_login{
+	margin-bottom:60px;
+	float: left;
+}
+
+.nome-cognome {
+    display: flex;
+    margin: 50px 100px 20px 100px
+}
+
+.nome-cognome-intern {
+    flex: 1;
+    margin-right: 30px;
+}
+
+.nome-cognome-intern input {
+	width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    margin-bottom: 5px;
+}
+
+.nome-cognome-intern label {
+    font-weight: bold;
+    display: block;
+}
+
+
+
+/* Stili per dispositivi di dimensioni ridotte */
+
+@media screen and (max-width: 1200px) {
+    .section {
+        flex-direction: column;
+        margin: 20px;
+    }
+
+    .left-container, .right-container {
+        flex: none;
+        width: auto;
+        padding: 20px;
+        margin-bottom: 20px;
+        margin-right: 100px;
+        margin-left: 100px;
+    }
+
+    .right-container {
+        text-align: left;
+    }
+
+    .intern-right-container {
+        padding: 20px;
+    }
+
+    .button {
+        width: auto;
+    }
+
+    .form {
+        max-width: none;
+    }
+    
+    .container {
+        flex-basis: 100%; /* Imposta la larghezza al 100% per il layout a colonna */
+    }
+
+    .button-margin {
+        text-align: center; /* Allinea i pulsanti al centro */
+    }
+
+    .registrazione-section {
+        margin-right: 100px; /* Riduci il margine della sezione */
+        margin-left: 100px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .section {
+        flex-direction: column;
+        margin: 20px;
+    }
+
+    .left-container, .right-container {
+        flex: none;
+        width: auto;
+        padding: 20px;
+        margin-right: 20px;
+        margin-left: 20px;
+    }
+
+    .right-container {
+        text-align: left;
+    }
+
+    .intern-right-container {
+        padding: 20px;
+    }
+
+    .button {
+        width: auto;
+    }
+
+    .form {
+        max-width: none;
+    }
+    
+    .container {
+        flex-basis: 100%; /* Imposta la larghezza al 100% per il layout a colonna */
+    }
+
+    .button-margin {
+        text-align: center; /* Allinea i pulsanti al centro */
+    }
+
+    .registrazione-section {
+        margin: 20px; /* Riduci il margine della sezione */
+    }
+    
+    .nome-cognome{
+    	margin: 50px 40px 20px 40px
+    }
+}
+
+
+/* Per schermi ancora più piccoli, ad esempio dispositivi mobili */
+@media screen and (max-width: 480px) {
+    .left-container, .right-container {
+        padding: 10px;
+    }
+
+    .button {
+        padding: 8px 10px;
+    }
+
+    .form input, form button {
+        padding: 8px;
+    }
+    
+    .container {
+        flex-basis: 100%; /* Imposta la larghezza al 100% per il layout a colonna */
+    }
+
+    .button-margin {
+        text-align: center; /* Allinea i pulsanti al centro */
+    }
+
+    .registrazione-section {
+        margin: 0px; /* Riduci il margine della sezione */
+    }
+    
+    .nome-cognome{
+    	margin: 50px 10px 20px 10px
+    }
+}
+
+
+/*
+section {
+    border: 2px solid #ccc;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+div{
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin-bottom: 20px;
+}*/
+
