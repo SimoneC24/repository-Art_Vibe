@@ -1,5 +1,10 @@
 package model;
 
+import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 public class PersonaBean {
 	
 	private String nome;
@@ -15,7 +20,7 @@ public class PersonaBean {
 		this.cf = cf;
 		this.indirizzo = indirizzo;
 		this.email = email;
-		this.password = password;
+		setPassword(password); //per crittografare la password
 	}
 
 	public String getNome() {
@@ -63,6 +68,16 @@ public class PersonaBean {
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		try
+        {
+            MessageDigest digest = MessageDigest.getInstance("SHA-1");
+            digest.reset();
+            digest.update(password.getBytes(StandardCharsets.UTF_8));
+            this.password = String.format("%040x", new BigInteger(1, digest.digest()));
+        }
+        catch (NoSuchAlgorithmException e)
+        {
+            throw new RuntimeException(e);
+        }
 	}
 }

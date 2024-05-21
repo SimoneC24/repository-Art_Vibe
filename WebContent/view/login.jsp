@@ -24,7 +24,7 @@
 			<form class="form" method="POST" action="${ pageContext.request.contextPath }/login">
 				<p>Please login to your account</p>
 				<div>
-					<input type="email" name="username" placeholder="Inserisci la tua e-mail" />
+					<input type="email" name="email" placeholder="Inserisci la tua e-mail" />
 					<label>E-mail</label>
 				</div>
 

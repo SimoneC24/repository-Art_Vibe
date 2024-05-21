@@ -22,12 +22,12 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String username = request.getParameter("username");
+		String email = request.getParameter("email");
 		String password = request.getParameter("pwd");
 
 		PersonaBean p = null;
 		try {
-			p = PersonaDAO.login(username, password);
+			p = PersonaDAO.doRetriveByEmailPassword(email, password);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -39,11 +39,9 @@ public class LoginServlet extends HttpServlet {
 			System.out.println(p.getCognome());
 			System.out.println(p.getEmail());
 			System.out.println(p.getPassword());
-
+			
 		} else {
 			System.out.println("Errore");
 		}
-
 	}
-
 }

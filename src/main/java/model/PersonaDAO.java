@@ -27,23 +27,23 @@ public class PersonaDAO implements IBeanDAO<PersonaBean> {
 		}
 	}
 
-	public static PersonaBean login(String username, String password) throws SQLException {
+	public static PersonaBean doRetriveByEmailPassword(String email, String password) throws SQLException {
 
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String insertSQL = "SELECT * FROM persona WHERE email=? AND password=?";
+		String selectSQL = "SELECT * FROM persona WHERE email=? AND password=SHA1(?)";
 
 		try {
 			connection = ds.getConnection();
-			preparedStatement = connection.prepareStatement(insertSQL);
-			preparedStatement.setString(1, username);
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setString(1, email);
 			preparedStatement.setString(2, password);
 
 			ResultSet rs = preparedStatement.executeQuery();
 
 			if (rs.next()) {
-				PersonaBean p = new PersonaBean(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),username, password);
+				PersonaBean p = new PersonaBean(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), email, password);
 				return p;
 			} else
 				return null;
@@ -63,8 +63,39 @@ public class PersonaDAO implements IBeanDAO<PersonaBean> {
 	}
 
 	@Override
-	public synchronized void doSave(PersonaBean product) throws SQLException {
+	public synchronized void doSave(PersonaBean persona) throws SQLException {
+	    
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+	    
+	    String insertSQL = "INSERT INTO persona (nome, cognome, cf, indirizzo, email, password) VALUES (?, ?, ?, ?, ?, ?)";
+	    
+	    try {
+	        connection = ds.getConnection();
+	        preparedStatement = connection.prepareStatement(insertSQL);
+	        
+	        preparedStatement.setString(1, persona.getNome());
+	        preparedStatement.setString(2, persona.getCognome());
+	        preparedStatement.setString(3, persona.getCf());
+	        preparedStatement.setString(4, persona.getIndirizzo());
+	        preparedStatement.setString(5, persona.getEmail());
+	        preparedStatement.setString(6, persona.getPassword());
+	        
+	        preparedStatement.executeUpdate();
+	        
+	    } catch (SQLException e) {
+	        throw new RuntimeException(e);
+	    } finally {
+	        try {
+	            if (preparedStatement != null)
+	                preparedStatement.close();
+	        } finally {
+	            if (connection != null)
+	                connection.close();
+	        }
+	    }
 	}
+
 
 	@Override
 	public boolean doDelete(int code) throws SQLException {

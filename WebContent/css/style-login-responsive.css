@@ -6,57 +6,6 @@ body {
     background-repeat: no-repeat;
 }
 
-
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background: linear-gradient(to right, #007a8e, #00292d, black);
-    color: #fff;
-}
-
-.search-bar {
-    flex: 1;
-    display: flex; /* Imposta la visualizzazione dei figli in linea */
-    margin: 0 20px;
-}
-
-.search-bar input {
-    flex: 1; /* Fai espandere l'input per occupare tutto lo spazio disponibile */
-    padding: 8px;
-    border: none;
-    border-radius: 5px 0 0 5px; /* Angoli arrotondati solo a sinistra */
-    font-size: 16px;
-}
-
-.search-bar button {
-    padding: 8px 15px;
-    background-color: #8100f4;
-    border: none;
-    border-radius: 0 5px 5px 0; /* Angoli arrotondati solo a destra */
-    color: #fff;
-    cursor: pointer;
-}
-
-.logo{
-	padding: 2px;
-}
-
-.logo:hover {
-    border: 1px solid #000000; /* Cambia il colore e la larghezza del bordo a tuo piacimento */
-}
-
-.links a {
-    color: #fff;
-    text-decoration: none;
-    padding: 10px 5px 5px 5px;
-}
-
-.links a:hover {
-     border: 1px solid #fff;
-}
-
 .section {
 	max-width: 100%;
     display: flex;
@@ -99,7 +48,7 @@ body {
 }
 
 .button-margin{
-	margin-bottom: 60px;
+	padding-bottom: 20px;
 }
 
 .button {
@@ -151,52 +100,7 @@ body {
 
 
 
-.footer {
-    background: linear-gradient(to bottom, #007a8e, black);
-    color: white;
-    padding: 20px 0;
-    text-align: center;
-}
 
-.footer-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.footer-section{
-	display: flex;
-	margin-bottom: 50px;
-}
-
-.footer-section-intern {
-    flex-direction: column; /* Imposta la direzione dei figli come colonna */
-    flex: 1; /* Assicura che i div si espandano per riempire lo spazio */
-}
-
-.footer-section ul {
-    list-style: none;
-    padding: 0;
-    margin: 0; /* Rimuovi il margine predefinito */
-}
-
-.footer-section ul li {
-    margin-bottom: 5px;
-}
-
-.footer-section ul li a {
-    text-decoration: none;
-    color: white;
-}
-
-.footer-section ul li a:hover{
-	color: #888888;
-}
-
-#footer {
-    margin-top: 20px;
-    font-size: 14px;
-}
 
 
 .registrazione-section {
@@ -217,13 +121,8 @@ body {
 }
 
 .button-registrati{
-	margin-bottom:60px;
-	float: right;
-}
-
-.button-torna_login{
-	margin-bottom:60px;
-	float: left;
+	text-align: center;
+	margin: 70px 0px 30px 0px;
 }
 
 .nome-cognome {
@@ -296,6 +195,7 @@ body {
         margin-left: 100px;
     }
 }
+
 
 @media screen and (max-width: 768px) {
     .section {
@@ -375,6 +275,13 @@ body {
     	margin: 50px 10px 20px 10px
     }
 }
+
+
+.error {
+    border: 1px solid red;
+}
+
+
 
 
 /*
