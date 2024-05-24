@@ -2,14 +2,14 @@ body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
-    background: white;
+    background: white; 
     background-repeat: no-repeat;
 }
 
 .section {
 	max-width: 100%;
     display: flex;
-    margin: 20px 220px 20px 220px;
+    margin: 80px 220px 20px 220px;
 }
 
 .left-container {
@@ -106,7 +106,7 @@ body {
 .registrazione-section {
 	max-width: 100%;
     display: flex;
-    margin: 20px 250px 20px 250px;
+    margin: 100px 250px 20px 250px;
 }
 
 .container {
@@ -145,6 +145,12 @@ body {
 .nome-cognome-intern label {
     font-weight: bold;
     display: block;
+}
+
+
+textarea{
+	width: 400px;
+	height: 200px;
 }
 
 
@@ -236,12 +242,16 @@ body {
     }
 
     .registrazione-section {
-        margin: 20px; /* Riduci il margine della sezione */
+        margin: 10px; /* Riduci il margine della sezione */
     }
     
     .nome-cognome{
-    	margin: 50px 40px 20px 40px
+    	margin: 50px 10px 20px 10px
     }
+    
+    textarea{
+		width: 300px;
+	}  
 }
 
 
@@ -274,12 +284,17 @@ body {
     .nome-cognome{
     	margin: 50px 10px 20px 10px
     }
+    
+    textarea{
+		width: 300px;
+	}
 }
 
 
 .error {
     border: 1px solid red;
 }
+
 
 
 

@@ -9,6 +9,7 @@
 	href="${ pageContext.request.contextPath }\css\style-login-responsive.css">
 	
 <style>
+
 .footer {
 	position: relative;
 	background: linear-gradient(to bottom, #007a8e, black);

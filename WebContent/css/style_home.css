@@ -14,19 +14,22 @@ body {
     display: flex;
     flex: 1;
     padding: 20px; /* Optional: Add some padding around the content */
+    background: #ddd;
 }
 
 .sidebar {
-	border: 3px solid #999;
-	background: linear-gradient(to right,  #8100f4, #350055);
-    width: 20%; /* Adjust the width as needed */
+	background: #aaa;;
+    width: 15%; /* Adjust the width as needed */
     padding: 20px;
     margin-right: 10px;
 }
 
+.sidebar:hover{
+	background: linear-gradient(to right,  #8100f4, #350055);
+}
+
 .artworks {
-	background: #eee;
-    width: 80%; /* Adjust the width as needed */
+    width: 85%; /* Adjust the width as needed */
     display: flex;
     flex-wrap: wrap; /* Optional: Wrap artworks to the next line if needed */
 }
@@ -84,6 +87,8 @@ body {
     color: black;
   	background-color: white;
 }
+
+
 
 /* Aggiungi questo CSS alla fine del tuo file style_home.css */
 

@@ -67,7 +67,7 @@
 
 <nav class="navbar">
     <div class="logo">
-        <a href="home.jsp">
+        <a href="${pageContext.request.contextPath}/home">
             <img src="${pageContext.request.contextPath}/img/logo2.png" alt="Logo" style="width: 40px">
         </a>
     </div>
@@ -76,8 +76,8 @@
         <button type="submit">Cerca</button>
     </div>
     <div class="links">
-        <a href="login.jsp" id="login">Login</a> 
-        <a href="registrazione.jsp" id="registrazione">Registrati</a>
+        <a href="${pageContext.request.contextPath}/view/login.jsp" id="login">Login</a> 
+        <a href="${pageContext.request.contextPath}/view/registrazione.jsp" id="registrazione">Registrati</a>
         <a href="cart.html" id="carrello">
             <img src="${pageContext.request.contextPath}/img/carrello.png" alt="Carrello" style="width: 25px">
         </a>
