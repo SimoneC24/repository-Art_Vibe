@@ -76,8 +76,10 @@
 				
 				<h3><%=opera.getNome()%></h3>
 				<p><%=opera.getArtista()%></p>
-				<h3><%=opera.getPrezzo()%></h3>
-				<button type="submit" class="button">Aggiungi al carrello</button>
+				<h3><%=opera.getPrezzo()%> &euro;</h3>
+				<form method="POST" action="${ pageContext.request.contextPath }/cartServlet?action=aggiungi&id=<%= opera.getId()%>">
+				<input type="submit" class="button" value="Aggiungi al Carrello">
+				</form>
 			</div>
 			<% } %>
 		</section>

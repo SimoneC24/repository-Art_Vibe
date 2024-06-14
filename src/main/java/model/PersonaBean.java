@@ -13,6 +13,7 @@ public class PersonaBean {
 	private String indirizzo;
 	private String email;
 	private String password;
+	private String role;
 	
 	public PersonaBean(String cf, String nome, String cognome, String indirizzo, String email, String password) {
 		this.nome = nome;
@@ -29,6 +30,14 @@ public class PersonaBean {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 	public String getCognome() {

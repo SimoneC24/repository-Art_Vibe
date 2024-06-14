@@ -67,8 +67,17 @@
 
 <nav class="navbar">
     <div class="logo">
-        <a href="${pageContext.request.contextPath}/home">
-            <img src="${pageContext.request.contextPath}/img/logo2.png" alt="Logo" style="width: 40px">
+        <%
+            String role = (String) session.getAttribute("role");
+            String homeUrl = request.getContextPath(); // Ottieni il contesto dell'applicazione
+            if (role != null && role.equals("admin")) {
+                homeUrl += "/homeAdmin";
+            } else {
+                homeUrl += "/home";
+            }
+        %>
+        <a href="<%= homeUrl %>">
+            <img src="<%= request.getContextPath() %>/img/logo2.png" alt="Logo" style="width: 40px">
         </a>
     </div>
     <div class="search-bar">
@@ -76,10 +85,10 @@
         <button type="submit">Cerca</button>
     </div>
     <div class="links">
-        <a href="${pageContext.request.contextPath}/view/login.jsp" id="login">Login</a> 
-        <a href="${pageContext.request.contextPath}/view/registrazione.jsp" id="registrazione">Registrati</a>
-        <a href="cart.html" id="carrello">
-            <img src="${pageContext.request.contextPath}/img/carrello.png" alt="Carrello" style="width: 25px">
+        <a href="<%= request.getContextPath() %>/view/login.jsp" id="login">Login</a>
+        <a href="<%= request.getContextPath() %>/view/registrazione.jsp" id="registrazione">Registrati</a>
+        <a href="<%= request.getContextPath() %>/cartServlet" id="carrello">
+            <img src="<%= request.getContextPath() %>/img/carrello.png" alt="Carrello" style="width: 25px">
         </a>
     </div>
 </nav>

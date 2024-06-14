@@ -89,6 +89,26 @@ body {
 }
 
 
+/* Admin Navigation Bar Styles */
+.admin-nav {
+    background-color: #8100f4;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+.admin-nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+}
+
+.admin-nav a:hover {
+    color: black;
+}
+
+
 
 /* Aggiungi questo CSS alla fine del tuo file style_home.css */
 

@@ -28,51 +28,73 @@ public class PersonaDAO implements IBeanDAO<PersonaBean> {
 	}
 
 	public static PersonaBean doRetriveByEmailPassword(String email, String password) throws SQLException {
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+	    ResultSet rs = null;
 
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+	    String selectSQL = "SELECT * FROM persona WHERE email=? AND password=SHA1(?)";
+	    String checkClientSQL = "SELECT cf FROM cliente WHERE cf=?";
+	    String checkAdminSQL = "SELECT cf FROM admin WHERE cf=?";
 
-		String selectSQL = "SELECT * FROM persona WHERE email=? AND password=SHA1(?)";
+	    try {
+	        connection = ds.getConnection();
+	        preparedStatement = connection.prepareStatement(selectSQL);
+	        preparedStatement.setString(1, email);
+	        preparedStatement.setString(2, password);
 
-		try {
-			connection = ds.getConnection();
-			preparedStatement = connection.prepareStatement(selectSQL);
-			preparedStatement.setString(1, email);
-			preparedStatement.setString(2, password);
+	        rs = preparedStatement.executeQuery();
 
-			ResultSet rs = preparedStatement.executeQuery();
+	        if (rs.next()) {
+	            String codiceFiscale = rs.getString("cf");
+	            PersonaBean p = new PersonaBean(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), email, password);
 
-			if (rs.next()) {
-				PersonaBean p = new PersonaBean(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), email, password);
-				return p;
-			} else
-				return null;
+	            if (isCodiceFiscalePresent(connection, checkClientSQL, codiceFiscale)) {
+	                p.setRole("client");
+	            }
+	            else if (isCodiceFiscalePresent(connection, checkAdminSQL, codiceFiscale)) {
+	                p.setRole("admin");
+	            }
 
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
-
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					connection.close();
-			}
-		}
+	            return p;
+	        } else {
+	            return null;
+	        }
+	    } catch (SQLException e) {
+	        throw new RuntimeException(e);
+	    } finally {
+	        try {
+	            if (rs != null) rs.close();
+	            if (preparedStatement != null) preparedStatement.close();
+	        } finally {
+	            if (connection != null) connection.close();
+	        }
+	    }
 	}
+
+	private static boolean isCodiceFiscalePresent(Connection connection, String sql, String codiceFiscale) throws SQLException {
+	    try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+	        preparedStatement.setString(1, codiceFiscale);
+	        try (ResultSet rs = preparedStatement.executeQuery()) {
+	            return rs.next();
+	        }
+	    }
+	}
+
 
 	@Override
 	public synchronized void doSave(PersonaBean persona) throws SQLException {
 	    
 	    Connection connection = null;
 	    PreparedStatement preparedStatement = null;
+	    PreparedStatement preparedStatement2 = null;
 	    
 	    String insertSQL = "INSERT INTO persona (nome, cognome, cf, indirizzo, email, password) VALUES (?, ?, ?, ?, ?, ?)";
+	    String insert2SQL = "INSERT INTO cliente (cf) VALUES (?)";
 	    
 	    try {
 	        connection = ds.getConnection();
 	        preparedStatement = connection.prepareStatement(insertSQL);
+	        preparedStatement2 = connection.prepareStatement(insert2SQL);
 	        
 	        preparedStatement.setString(1, persona.getNome());
 	        preparedStatement.setString(2, persona.getCognome());
@@ -82,6 +104,9 @@ public class PersonaDAO implements IBeanDAO<PersonaBean> {
 	        preparedStatement.setString(6, persona.getPassword());
 	        
 	        preparedStatement.executeUpdate();
+	        
+	        preparedStatement2.setString(1, persona.getCf());
+	        preparedStatement2.executeUpdate();
 	        
 	    } catch (SQLException e) {
 	        throw new RuntimeException(e);
