@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,41 +18,52 @@ import model.OperaDAO;
 
 @WebServlet(name = "cartServlet", urlPatterns = "/cartServlet")
 public class CartServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		Cart cart = (Cart)session.getAttribute("cart");
-		if(cart == null) {
-			cart = new Cart();
-			session.setAttribute("cart", cart);
-		}
-		
-		String action = request.getParameter("action");
-		int id = Integer.parseInt(request.getParameter("id"));
-		OperaBean opera = null;
-		
-		OperaDAO operaDAO = new OperaDAO();
-		try {
-			opera = operaDAO.doRetrieveByKey(id);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		if(action.equalsIgnoreCase("aggiungi")) {
-			cart.addProduct(opera);
-		}
-		
-		response.sendRedirect(request.getContextPath() + "/home");
-		
-		System.out.println("Elemento " + cart.getProducts().get(0));
-	}
+    private static final long serialVersionUID = 1L;
 
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		doGet(request, response);
-	}
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        Cart cart = (Cart) session.getAttribute("cart");
+        if (cart == null) {
+            cart = new Cart();
+            session.setAttribute("cart", cart);
+        }
 
+        String action = request.getParameter("action");
+        int id = Integer.parseInt(request.getParameter("id"));
+        OperaBean opera = null;
+
+        OperaDAO operaDAO = new OperaDAO();
+        try {
+            opera = operaDAO.doRetrieveByKey(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if (opera != null) {
+            switch (action.toLowerCase()) {
+                case "aggiungi":
+                    cart.addProduct(opera, 1);
+                    break;
+                case "incrementa":
+                    cart.incrementProductQuantity(opera, 1);
+                    break;
+                case "decrementa":
+                    cart.decrementProductQuantity(opera, 1);
+                    break;
+                case "rimuovi":
+                    cart.deleteProduct(opera);
+                    System.out.println("Prodotto rimosso: " + opera.getNome());
+                    break;
+            }
+        }
+
+        session.setAttribute("cart", cart);
+
+        RequestDispatcher rd = getServletContext().getRequestDispatcher("/view/carrello.jsp");
+        rd.forward(request, response);
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doGet(request, response);
+    }
 }

@@ -30,9 +30,41 @@ public class OperaDAO implements IBeanDAO<OperaBean>
 
 	@Override
 	public void doSave(OperaBean bean) throws SQLException {
-		
-		
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+
+	    String insertSQL = "INSERT INTO opera (Nome, Prezzo, Stile, Artista, data_creazione, Descrizione, Immagine) " +
+	                       "VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+	    try {
+	        connection = ds.getConnection();
+	        preparedStatement = connection.prepareStatement(insertSQL);
+
+	        preparedStatement.setString(1, bean.getNome());
+	        preparedStatement.setDouble(2, bean.getPrezzo());
+	        preparedStatement.setString(3, bean.getStile());
+	        preparedStatement.setString(4, bean.getArtista());
+	        preparedStatement.setDate(5, bean.getDataCreazione());
+	        preparedStatement.setString(6, bean.getDescrizione());
+	        preparedStatement.setBytes(7, bean.getImmagine()); // Set immagine as BLOB
+
+	        preparedStatement.executeUpdate();
+
+	    } catch (SQLException e) {
+	        throw new RuntimeException(e);
+
+	    } finally {
+	        try {
+	            if (preparedStatement != null)
+	                preparedStatement.close();
+	        } finally {
+	            if (connection != null)
+	                connection.close();
+	        }
+	    }
 	}
+
+
 
 	@Override
 	public boolean doDelete(int code) throws SQLException {
@@ -42,72 +74,89 @@ public class OperaDAO implements IBeanDAO<OperaBean>
 
 	@Override
 	public OperaBean doRetrieveByKey(int code) throws SQLException {
-		
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		
-		String selectSQL = "SELECT * FROM opera WHERE ID_Opera="+code;
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
 
-		try {
-			connection = ds.getConnection();
-			preparedStatement = connection.prepareStatement(selectSQL);
+	    String selectSQL = "SELECT * FROM opera WHERE ID_Opera = ?";
 
-			ResultSet rs = preparedStatement.executeQuery();
+	    try {
+	        connection = ds.getConnection();
+	        preparedStatement = connection.prepareStatement(selectSQL);
+	        preparedStatement.setInt(1, code);
 
-			if (rs.next()) {
-				OperaBean opera = new OperaBean(rs.getInt(1), rs.getString(2), rs.getDouble(3), rs.getString(4), rs.getString(5), rs.getDate(6), rs.getString(7), rs.getString(8));
-				return opera;
-			}
-			
-			return null;
+	        ResultSet rs = preparedStatement.executeQuery();
 
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
+	        if (rs.next()) {
+	            OperaBean opera = new OperaBean(
+	                rs.getInt("ID_Opera"),
+	                rs.getString("Nome"),
+	                rs.getDouble("Prezzo"),
+	                rs.getString("Stile"),
+	                rs.getString("Artista"),
+	                rs.getDate("data_creazione"),
+	                rs.getBytes("Immagine"), // Retrieve immagine as BLOB
+	                rs.getString("Descrizione")
+	            );
+	            return opera;
+	        }
 
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					connection.close();
-			}
-		}
+	        return null;
+
+	    } catch (SQLException e) {
+	        throw new RuntimeException(e);
+
+	    } finally {
+	        try {
+	            if (preparedStatement != null)
+	                preparedStatement.close();
+	        } finally {
+	            if (connection != null)
+	                connection.close();
+	        }
+	    }
 	}
 
 	@Override
 	public Collection<OperaBean> doRetrieveAll(String order) throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		Collection<OperaBean> opere = new ArrayList<>();
-		
-		String selectSQL = "SELECT * FROM opera";
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+	    Collection<OperaBean> opere = new ArrayList<>();
 
-		try {
-			connection = ds.getConnection();
-			preparedStatement = connection.prepareStatement(selectSQL);
+	    String selectSQL = "SELECT * FROM opera";
 
-			ResultSet rs = preparedStatement.executeQuery();
+	    try {
+	        connection = ds.getConnection();
+	        preparedStatement = connection.prepareStatement(selectSQL);
 
-			while (rs.next()) {
-				OperaBean opera = new OperaBean(rs.getInt(1), rs.getString(2), rs.getDouble(3), rs.getString(4), rs.getString(5), rs.getDate(6), rs.getString(7), rs.getString(8));
-				opere.add(opera);
-			}
-			
-			return opere;
+	        ResultSet rs = preparedStatement.executeQuery();
 
-		} catch (SQLException e) {
-			throw new RuntimeException(e);
+	        while (rs.next()) {
+	            OperaBean opera = new OperaBean(
+	                rs.getInt("ID_Opera"),
+	                rs.getString("Nome"),
+	                rs.getDouble("Prezzo"),
+	                rs.getString("Stile"),
+	                rs.getString("Artista"),
+	                rs.getDate("data_creazione"),
+	                rs.getBytes("Immagine"), // Retrieve immagine as BLOB
+	                rs.getString("Descrizione")
+	            );
+	            opere.add(opera);
+	        }
 
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					connection.close();
-			}
-		}
+	        return opere;
+
+	    } catch (SQLException e) {
+	        throw new RuntimeException(e);
+
+	    } finally {
+	        try {
+	            if (preparedStatement != null)
+	                preparedStatement.close();
+	        } finally {
+	            if (connection != null)
+	                connection.close();
+	        }
+	    }
 	}
-	
 }

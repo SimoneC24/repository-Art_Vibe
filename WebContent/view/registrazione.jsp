@@ -52,6 +52,7 @@
                     <div class="nome-cognome-intern">
                         <input type="password" name="password" placeholder="Password" required />
                         <label>Password</label>
+                        <div id="password-feedback"></div>
                     </div>
                 </div>
 

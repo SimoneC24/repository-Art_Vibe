@@ -1,6 +1,7 @@
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.Collection"%>
 <%@ page import="model.*"%>
+<%@ page import="java.util.Base64"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -71,15 +72,19 @@
 			<div class="artwork">
 				<a
 					href="${pageContext.request.contextPath}/operaServlet?id=<%= opera.getId()%>">
-					<img src="${pageContext.request.contextPath}/img/<%= opera.getImmagine()%>"height="250px" alt="Opera 1">
+					<img
+					src="data:image/jpeg;base64, <%=Base64.getEncoder().encodeToString(opera.getImmagine())%>"
+					height="250px" alt="Opera 1">
 				</a>
 				
 				<h3><%=opera.getNome()%></h3>
 				<p><%=opera.getArtista()%></p>
 				<h3><%=opera.getPrezzo()%> &euro;</h3>
+				
 				<form method="POST" action="${ pageContext.request.contextPath }/cartServlet?action=aggiungi&id=<%= opera.getId()%>">
-				<input type="submit" class="button" value="Aggiungi al Carrello">
+					<input type="submit" class="button" value="Aggiungi al Carrello">
 				</form>
+				
 			</div>
 			<% } %>
 		</section>

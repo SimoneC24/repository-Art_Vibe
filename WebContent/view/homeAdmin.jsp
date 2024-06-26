@@ -1,13 +1,15 @@
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.Collection"%>
 <%@ page import="model.*"%>
+<%@ page import="java.util.Base64"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin Home Page</title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style_home.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/style_home.css">
 </head>
 
 <style>
@@ -43,7 +45,7 @@
 
 .admin-nav a:hover {
 	color: black;
-	background:#8100f4;
+	background: #8100f4;
 }
 </style>
 
@@ -53,8 +55,10 @@
 
 	<!-- Admin Navigation Bar -->
 	<div class="admin-nav">
-		<a href="${pageContext.request.contextPath}/view/aggiungiOpera.jsp">Aggiungi Opera</a>
-		<a href="${pageContext.request.contextPath}/view/visualizzaOrdini.jsp">Visualizza Ordini</a>
+		<a href="${pageContext.request.contextPath}/view/aggiungiOpera.jsp">Aggiungi
+			Opera</a> <a
+			href="${pageContext.request.contextPath}/view/visualizzaOrdini.jsp">Visualizza
+			Ordini</a>
 	</div>
 
 
@@ -70,17 +74,23 @@
 			<div class="artwork">
 				<a
 					href="${pageContext.request.contextPath}/operaServlet?id=<%= opera.getId()%>">
-					<img src="${pageContext.request.contextPath}/img/<%= opera.getImmagine()%>"height="250px" alt="Opera 1">
+					<img
+					src="data:image/jpeg;base64, <%=Base64.getEncoder().encodeToString(opera.getImmagine())%>"
+					height="250px" alt="Opera 1">
 				</a>
-				
+
 				<h3><%=opera.getNome()%></h3>
 				<p><%=opera.getArtista()%></p>
-				<h3><%=opera.getPrezzo()%> &euro;</h3>
-				
-					<input type="submit" class="button" value="Modifica">
-					<input type="submit" class="button" value="Elimina">
+				<h3><%=opera.getPrezzo()%>
+					&euro;
+				</h3>
+
+				<input type="submit" class="button" value="Modifica"> <input
+					type="submit" class="button" value="Elimina">
 			</div>
-			<% } %>
+			<%
+			}
+			%>
 		</section>
 
 	</div>

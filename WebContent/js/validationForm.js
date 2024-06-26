@@ -82,4 +82,3 @@ function validate(obj)
 	return valid;
 }
 
-
