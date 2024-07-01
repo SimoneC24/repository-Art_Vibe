@@ -14,9 +14,7 @@ public class OperaBean {
     private String artista;
     private byte[] immagine;
 
-    // Costruttore aggiornato
-    public OperaBean(int id, String nome, double prezzo, String stile, String artista, Date dataCreazione, byte[] immagine, String descrizione) {
-        this.id = id;
+    public OperaBean(String nome, double prezzo, String stile, String artista, Date dataCreazione, byte[] immagine, String descrizione) {
         this.nome = nome;
         this.descrizione = descrizione;
         this.stile = stile;
@@ -26,7 +24,7 @@ public class OperaBean {
         this.immagine = immagine;
     }
 
-    // Getters e Setters aggiornati
+    
     public int getId() {
         return id;
     }

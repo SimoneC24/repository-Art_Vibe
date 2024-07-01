@@ -15,7 +15,6 @@ import model.Cart;
 import model.OperaBean;
 import model.OperaDAO;
 
-
 @WebServlet(name = "cartServlet", urlPatterns = "/cartServlet")
 public class CartServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -29,31 +28,48 @@ public class CartServlet extends HttpServlet {
         }
 
         String action = request.getParameter("action");
-        int id = Integer.parseInt(request.getParameter("id"));
-        OperaBean opera = null;
 
-        OperaDAO operaDAO = new OperaDAO();
-        try {
-            opera = operaDAO.doRetrieveByKey(id);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        if (opera != null) {
-            switch (action.toLowerCase()) {
-                case "aggiungi":
-                    cart.addProduct(opera, 1);
-                    break;
-                case "incrementa":
-                    cart.incrementProductQuantity(opera, 1);
-                    break;
-                case "decrementa":
-                    cart.decrementProductQuantity(opera, 1);
-                    break;
-                case "rimuovi":
-                    cart.deleteProduct(opera);
-                    System.out.println("Prodotto rimosso: " + opera.getNome());
-                    break;
+        if (action != null) {
+            OperaDAO operaDAO = new OperaDAO();
+            try {
+                switch (action.toLowerCase()) {
+                    case "aggiungi":
+                        int idAdd = Integer.parseInt(request.getParameter("id"));
+                        OperaBean operaAdd = operaDAO.doRetrieveByKey(idAdd);
+                        if (operaAdd != null) {
+                            cart.addProduct(operaAdd, 1);
+                        }
+                        break;
+                    case "incrementa":
+                        int idInc = Integer.parseInt(request.getParameter("id"));
+                        OperaBean operaInc = operaDAO.doRetrieveByKey(idInc);
+                        if (operaInc != null) {
+                            cart.incrementProductQuantity(operaInc, 1);
+                        }
+                        break;
+                    case "decrementa":
+                        int idDec = Integer.parseInt(request.getParameter("id"));
+                        OperaBean operaDec = operaDAO.doRetrieveByKey(idDec);
+                        if (operaDec != null) {
+                            cart.decrementProductQuantity(operaDec, 1);
+                        }
+                        break;
+                    case "rimuovi":
+                        int idRem = Integer.parseInt(request.getParameter("id"));
+                        OperaBean operaRem = operaDAO.doRetrieveByKey(idRem);
+                        if (operaRem != null) {
+                            cart.deleteProduct(operaRem);
+                        }
+                        break;
+                    case "svuota":
+                        cart.clear();
+                        break;
+                    default:
+                        // Gestione per azioni non valide
+                        break;
+                }
+            } catch (NumberFormatException | SQLException e) {
+                e.printStackTrace(); // Gestione degli errori
             }
         }
 

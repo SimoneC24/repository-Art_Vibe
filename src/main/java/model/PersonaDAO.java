@@ -139,4 +139,10 @@ public class PersonaDAO implements IBeanDAO<PersonaBean> {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void doUpdate(PersonaBean bean) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
 }

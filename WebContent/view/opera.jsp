@@ -1,6 +1,7 @@
 <%@ page import="model.*"%>
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="java.util.Date"%>
+<%@ page import="java.util.Base64"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -145,8 +146,8 @@ footer {
 		<div class="opera-details">
 			<div class="opera-image">
 				<img
-					src="${pageContext.request.contextPath}/img/<%= opera.getImmagine() %>"
-					alt="<%= opera.getNome() %>">
+					src="data:image/jpeg;base64, <%=Base64.getEncoder().encodeToString(opera.getImmagine())%>"
+					alt="<%=opera.getNome()%>">
 			</div>
 			<div class="opera-info">
 				<h2><%=opera.getNome()%></h2>

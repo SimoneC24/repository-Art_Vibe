@@ -79,14 +79,14 @@ public class AggiungiOperaServlet extends HttpServlet {
         }
 
         // Creazione del bean OperaBean con i dati ottenuti
-        OperaBean nuovaOpera = new OperaBean(0, nome, prezzo, stile, artista, data, immagineBytes, descrizione);
+        OperaBean nuovaOpera = new OperaBean(nome, prezzo, stile, artista, data, immagineBytes, descrizione);
 
         // Salvataggio nel database tramite OperaDAO
         OperaDAO operaDAO = new OperaDAO();
         try {
             operaDAO.doSave(nuovaOpera);
             // Operazione riuscita, reindirizziamo alla pagina di successo o lista opere
-            response.sendRedirect(request.getContextPath() + "/successo.jsp");
+            response.sendRedirect(request.getContextPath() + "/view/aggiungiOpera.jsp");
         } catch (SQLException e) {
             // Gestione dell'errore
             throw new ServletException("Errore durante l'inserimento dell'opera nel database", e);

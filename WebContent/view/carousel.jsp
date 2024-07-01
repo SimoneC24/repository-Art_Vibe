@@ -36,7 +36,7 @@
 }
 
 .owl-carousel {
-	background: linear-gradient(to bottom, #aaa, #bbb, #ddd);
+	background: #00292d;;
 }
 </style>
 
@@ -77,11 +77,11 @@
 		</div>
 		<div class="item"
 			style="background-image: url(${pageContext.request.contextPath}/img/carousel1.jpg)">
-			<div class="carousel-caption">Acquista qui la tua opera</div>
+			<div class="carousel-caption">Qui puoi trovare il tuo quadro preferito</div>
 		</div>
 		<div class="item"
 			style="background-image: url(${pageContext.request.contextPath}/img/carousel3.jpg)">
-			<div class="carousel-caption">Acquista qui la tua opera</div>
+			<div class="carousel-caption">Cerca e trova la tua scultura</div>
 		</div>
 	</div>
 

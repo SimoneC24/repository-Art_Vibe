@@ -8,7 +8,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Home Page</title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style_home.css">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/style_home.css">
 </head>
 
 <style>
@@ -34,32 +35,19 @@
 
 		<!-- Sidebar -->
 		<aside class="sidebar">
-
 			<h3>Ricerca per</h3>
-			<ul>
-				<li><a href="#">Tipo</a> <select>
-						<option value="nessuno">nessuno</option>
-						<option value="arte-preistorica">Arte Preistorica</option>
-						<option value="arte-egizia">Arte Egizia</option>
-						<option value="arte-greca">Arte Greca</option>
-						<option value="arte-romana">Arte Romana</option>
-						<option value="arte-bizantina">Arte Bizantina</option>
-						<option value="arte-romanica">Arte Romanica</option>
-						<option value="arte-gotica">Arte Gotica</option>
-						<option value="umanesimo">Umanesimo</option>
-						<option value="manierismo">Manierismo</option>
-						<option value="barocco">Barocco</option>
-						<option value="rococo">Rococò</option>
-				</select></li>
-				<li><a href="#">Artista</a> <select>
-						<option value="nessuno">nessuno</option>
-						<option value="picasso">Picasso</option>
-						<option value="van-gogh">Van Gogh</option>
-						<option value="leonardo">Leonardo</option>
-						<option value="leonardo-da-vinci">Leonardo da Vinci</option>
-						<option value="raffaello">Raffaello</option>
-				</select></li>
-			</ul>
+			<form action="${pageContext.request.contextPath}/home" method="GET">
+				<label for="minPrice">Prezzo Minimo:</label> <input type="number"
+					id="minPrice" name="minPrice" min="0" step="0.01" placeholder="Min">
+
+				<label for="maxPrice">Prezzo Massimo:</label> <input type="number"
+					id="maxPrice" name="maxPrice" min="0" step="0.01" placeholder="Max">
+
+				<label for="artistName">Artista:</label> <input type="text"
+					id="artistName" name="artistName" placeholder="Nome artista">
+
+				<input type="submit" value="Cerca">
+			</form>
 		</aside>
 
 
@@ -67,26 +55,34 @@
 		<section class="artworks">
 			<%
 			Collection<OperaBean> opere = (Collection<OperaBean>) request.getAttribute("opere");
-			for (OperaBean opera : opere) {
+			if (opere != null && !opere.isEmpty()) {
+				for (OperaBean opera : opere) {
 			%>
 			<div class="artwork">
 				<a
-					href="${pageContext.request.contextPath}/operaServlet?id=<%= opera.getId()%>">
+					href="${pageContext.request.contextPath}/operaServlet?id=<%= opera.getId() %>">
 					<img
 					src="data:image/jpeg;base64, <%=Base64.getEncoder().encodeToString(opera.getImmagine())%>"
-					height="250px" alt="Opera 1">
+					height="250px" alt="Opera">
 				</a>
-				
 				<h3><%=opera.getNome()%></h3>
 				<p><%=opera.getArtista()%></p>
-				<h3><%=opera.getPrezzo()%> &euro;</h3>
-				
-				<form method="POST" action="${ pageContext.request.contextPath }/cartServlet?action=aggiungi&id=<%= opera.getId()%>">
+				<h3><%=opera.getPrezzo()%>
+					&euro;
+				</h3>
+				<form method="POST"
+					action="${ pageContext.request.contextPath }/cartServlet?action=aggiungi&id=<%= opera.getId() %>">
 					<input type="submit" class="button" value="Aggiungi al Carrello">
 				</form>
-				
 			</div>
-			<% } %>
+			<%
+			}
+			} else {
+			%>
+			<p id="no-result">Nessuna opera trovata.</p>
+			<%
+			}
+			%>
 		</section>
 
 	</div>

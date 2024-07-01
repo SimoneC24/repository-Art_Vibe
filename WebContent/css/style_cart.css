@@ -90,7 +90,7 @@ h1 {
     display: block;
     width: 100%;
     max-width: 300px;
-    margin: 20px auto 0;
+    margin: 20px 0 0 auto;
     padding: 10px 20px;
     background-color: #28a745;
     color: #fff;
@@ -104,6 +104,20 @@ h1 {
 
 .checkout:hover {
     background-color: #218838;
+}
+
+.svuota-cart-button {
+    background-color: #dc3545;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.svuota-cart-button:hover {
+    background-color: #c82333;
 }
 
 /* Responsive Design */
@@ -145,6 +159,10 @@ h1 {
     .checkout {
         padding: 10px;
         font-size: 1em;
+    }
+    
+     .svuota-cart-button {
+        padding: 8px 16px;
     }
 }
 
@@ -202,4 +220,10 @@ h1 {
     .quantity-controls span {
         margin: 0 10px;
     }
+    
+    .svuota-cart-button {
+        padding: 6px 12px;
+    }
 }
+
+

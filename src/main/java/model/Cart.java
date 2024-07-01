@@ -1,8 +1,9 @@
 package model;
 
 import java.util.HashMap;
+import java.util.Iterator;
 
-public class Cart {
+public class Cart{
     private HashMap<OperaBean, Integer> products;
 
     public Cart() {
@@ -37,6 +38,10 @@ public class Cart {
 
     public void deleteProduct(OperaBean product) {
         products.remove(product);
+    }
+    
+    public void clear() {
+        products.clear(); // Rimuove tutti i prodotti dal carrello
     }
 
     public HashMap<OperaBean, Integer> getProducts() {

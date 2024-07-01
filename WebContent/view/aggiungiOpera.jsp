@@ -59,7 +59,7 @@ select option {
 
                 <div class="nome-cognome">
                     <div class="nome-cognome-intern">
-                        <input type="number" name="prezzo" placeholder="Inserisci il prezzo dell'opera" step="1" required />
+                        <input type="number" name="prezzo" placeholder="Inserisci il prezzo dell'opera" step="0.01" required />
                         <label>Prezzo</label>
                     </div>
                 </div>
@@ -67,14 +67,43 @@ select option {
                 <div class="nome-cognome">
                     <div class="nome-cognome-intern">
                         <select name="stile" required>
-                            <option value="classico">Classico</option>
-                            <option value="rinascimentale">Rinascimentale</option>
-                            <option value="barocco">Barocco</option>
-                            <option value="neoclassico">Neoclassico</option>
-                            <option value="romantico">Romantico</option>
-                            <option value="impressionista">Impressionista</option>
-                            <option value="modernista">Modernista</option>
-                            <option value="contemporaneo">Contemporaneo</option>
+                            <option value="Arte Preistorica">Arte Preistorica</option>
+                            <option value="Arte Egizia">Arte Egizia</option>
+                            <option value="Arte Greca Classica">Arte Greca Classica</option>
+                            <option value="Rrte Romana">Arte Romana</option>
+                            <option value="Arte Bizantina">Arte Bizantina</option>
+                            <option value="Romanico">Romanico</option>
+                            <option value="Gotico">Gotico</option>
+                            <option value="Rinascimento">Rinascimento</option>
+                            <option value="Manierismo">Manierismo</option>
+                            <option value="Barocco">Barocco</option>
+                            <option value="Rococò">Rococò</option>
+                            <option value="Neoclassicismo">Neoclassicismo</option>
+                            <option value="Romanticismo">Romanticismo</option>
+                            <option value="Realismo">Realismo</option>
+                            <option value="Impressionismo">Impressionismo</option>
+                            <option value="Post Impressionismo">Post-Impressionismo</option>
+                            <option value="Simbolismo">Simbolismo</option>
+                            <option value="Art Nouveau">Art Nouveau</option>
+                            <option value="Fauvismo">Fauvismo</option>
+                            <option value="Espressinismo">Espressionismo</option>
+                            <option value="Cubismo">Cubismo</option>
+                            <option value="Futurismo">Futurismo</option>
+                            <option value="Dedaismo">Dadaismo</option>
+                            <option value="Surrealismo">Surrealismo</option>
+                            <option value="De Stijl">De Stijl</option>
+                            <option value="Astrattismo">Astrattismo</option>
+                            <option value="Arte Concettuale">Arte Concettuale</option>
+                            <option value="Minimalismo">Minimalismo</option>
+                            <option value="Primitivismo Nordico">Primitivismo nordico</option>
+                            <option value="Pop Art">Pop Art</option>
+                            <option value="Arte Povera">Arte Povera</option>
+                            <option value="Transavanguardia">Transavanguardia</option>
+                            <option value="Street Art">Street Art</option>
+                            <option value="Fotorealismo">Fotorealismo</option>
+                            <option value="Arte Digitale">Arte Digitale</option>
+                            <option value="Arte Interattiva">Arte Interattiva</option>
+                            <option value="Ukiyo-e">Ukiyo-e</option>
                         </select>
                         <label>Stile</label>
                     </div>
@@ -82,16 +111,7 @@ select option {
 
                 <div class="nome-cognome">
                     <div class="nome-cognome-intern">
-                        <select name="artista" required>
-                            <option value="" disabled selected>Seleziona l'artista</option>
-                            <option value="leonardo-da-vinci">Leonardo da Vinci</option>
-                            <option value="michelangelo">Michelangelo</option>
-                            <option value="vincent-van-gogh">Vincent van Gogh</option>
-                            <option value="pablo-picasso">Pablo Picasso</option>
-                            <option value="claude-monet">Claude Monet</option>
-                            <option value="frida-kahlo">Frida Kahlo</option>
-                            <option value="salvador-dali">Salvador Dalí</option>
-                        </select>
+                        <input type="text" name="artista" placeholder="Inserisci l'auotore dell'opera" required /> 
                         <label>Artista</label>
                     </div>
                 </div>

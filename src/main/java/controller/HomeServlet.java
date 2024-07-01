@@ -20,24 +20,35 @@ public class HomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		Collection<OperaBean> opere = new ArrayList<OperaBean>();
-		OperaDAO operaDAO = new OperaDAO();
-		
-		try {
-			opere = operaDAO.doRetrieveAll("");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		request.setAttribute("opere", opere);
-		
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/view/home.jsp");
-		rd.forward(request, response);
-	}
+        String searchQuery = request.getParameter("search");
+        String minPriceParam = request.getParameter("minPrice");
+        String maxPriceParam = request.getParameter("maxPrice");
+        String artistName = request.getParameter("artistName");
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		doGet(request, response);
-	}
+        Collection<OperaBean> opere = new ArrayList<>();
+        OperaDAO operaDAO = new OperaDAO();
+
+        try {
+            if ((minPriceParam != null && !minPriceParam.isEmpty()) || (maxPriceParam != null && !maxPriceParam.isEmpty()) || (artistName != null && !artistName.isEmpty())) {
+                double minPrice = minPriceParam != null && !minPriceParam.isEmpty() ? Double.parseDouble(minPriceParam) : 0;
+                double maxPrice = maxPriceParam != null && !maxPriceParam.isEmpty() ? Double.parseDouble(maxPriceParam) : Double.MAX_VALUE;
+
+                opere = operaDAO.doRetrieveByPriceAndArtist(minPrice, maxPrice, artistName);
+            } else if (searchQuery != null && !searchQuery.isEmpty()) {
+                opere = operaDAO.doRetrieveByName(searchQuery);
+            } else {
+                opere = operaDAO.doRetrieveAll("");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        request.setAttribute("opere", opere);
+        RequestDispatcher rd = getServletContext().getRequestDispatcher("/view/home.jsp");
+        rd.forward(request, response);
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doGet(request, response);
+    }
 }
