@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -58,6 +60,51 @@ public class OpereAcquistateDAO implements IBeanDAO<OpereAcquistate>{
                 connection.close();
             }
         }
+    }
+	
+	public List<OpereAcquistate> doRetrieveAllByOrder(int ordineId) throws SQLException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        List<OpereAcquistate> opereAcquistateList = new ArrayList<>();
+
+        String selectSQL = "SELECT * FROM opere_acquistate WHERE ordine_id = ?";
+
+        try {
+            connection = ds.getConnection();
+            preparedStatement = connection.prepareStatement(selectSQL);
+            preparedStatement.setInt(1, ordineId);
+
+            resultSet = preparedStatement.executeQuery();
+            
+            System.out.println("Qui ci arrivo");
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String nomeOpera = resultSet.getString("nome_opera");
+                double prezzoOpera = resultSet.getDouble("prezzo_opera");
+                byte[] immagineOpera = resultSet.getBytes("immagine_opera");
+                int quantitaOpera = resultSet.getInt("quantita_opera");
+
+                OpereAcquistate opera = new OpereAcquistate(ordineId, nomeOpera, prezzoOpera, immagineOpera, quantitaOpera);
+                opera.setId(id);
+                
+                System.out.println("Il nome dell'opera: "+nomeOpera);
+
+                opereAcquistateList.add(opera);
+            }
+        } finally {
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+
+        return opereAcquistateList;
     }
 
 	@Override

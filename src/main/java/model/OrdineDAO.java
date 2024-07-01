@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -74,6 +76,52 @@ public class OrdineDAO implements IBeanDAO<OrdineBean> {
 
         return generatedId; // Restituisci l'ID generato
     }
+	
+	
+	public List<OrdineBean> doRetrieveAllByUser(String id) throws SQLException {
+	    Connection connection = null;
+	    PreparedStatement preparedStatement = null;
+	    ResultSet resultSet = null;
+	    List<OrdineBean> ordini = new ArrayList<>();
+
+	    String selectSQL = "SELECT * FROM ordine WHERE ID_utente = ?";
+
+	    try {
+	        connection = ds.getConnection();
+	        preparedStatement = connection.prepareStatement(selectSQL);
+	        preparedStatement.setString(1, id);
+
+	        resultSet = preparedStatement.executeQuery();
+
+	        while (resultSet.next()) {
+	            OrdineBean ordine = new OrdineBean(
+	                resultSet.getDouble("totale"),
+	                resultSet.getDate("data_ordine"),
+	                resultSet.getString("numero_carta"),
+	                resultSet.getInt("cvv_carta"),
+	                resultSet.getDate("data_scadenza_carta"),
+	                resultSet.getString("ID_utente")
+	            );
+	            
+	            ordine.setId_ordine(resultSet.getInt("ID_ordine"));
+	            ordini.add(ordine);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } finally {
+	        if (resultSet != null) {
+	            resultSet.close();
+	        }
+	        if (preparedStatement != null) {
+	            preparedStatement.close();
+	        }
+	        if (connection != null) {
+	            connection.close();
+	        }
+	    }
+	    return ordini;
+	}
+	
 
 	@Override
 	public boolean doDelete(int code) throws SQLException {

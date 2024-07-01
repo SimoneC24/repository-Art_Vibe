@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Base64;
+
 public class OpereAcquistate {
 	
 	private int id;
@@ -8,6 +10,7 @@ public class OpereAcquistate {
 	private double prezzo_opera;
 	private byte[] immagine_opera;
 	private int quantita_opera;
+	private String immagineBase64;
 	
 	public OpereAcquistate(int ordine_id, String nome_opera, double prezzo_opera, byte[] immagine_opera, int quantita_opera) {
 		this.ordine_id=ordine_id;
@@ -15,7 +18,11 @@ public class OpereAcquistate {
 		this.prezzo_opera=prezzo_opera;
 		this.immagine_opera=immagine_opera;
 		this.quantita_opera=quantita_opera;
-	}
+		
+		if (immagine_opera != null && immagine_opera.length > 0) {
+            this.immagineBase64 = Base64.getEncoder().encodeToString(immagine_opera);
+        }
+    }
 
 	public int getId() {
 		return id;
@@ -64,4 +71,12 @@ public class OpereAcquistate {
 	public void setQuantita_opera(int quantita_opera) {
 		this.quantita_opera = quantita_opera;
 	}
+	
+	public String getImmagineBase64() {
+        return immagineBase64;
+    }
+
+    public void setImmagineBase64(String immagineBase64) {
+        this.immagineBase64 = immagineBase64;
+    }
 }
