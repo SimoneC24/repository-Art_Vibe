@@ -37,7 +37,7 @@ public class HomeServlet extends HttpServlet {
             } else if (searchQuery != null && !searchQuery.isEmpty()) {
                 opere = operaDAO.doRetrieveByName(searchQuery);
             } else {
-                opere = operaDAO.doRetrieveAll("");
+                opere = operaDAO.doRetrieveAll();
             }
         } catch (SQLException e) {
             e.printStackTrace();

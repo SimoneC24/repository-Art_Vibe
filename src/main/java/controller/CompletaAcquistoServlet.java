@@ -6,8 +6,6 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,27 +31,41 @@ public class CompletaAcquistoServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Otteniamo i dati di input
         String numero_carta = request.getParameter("cardNumber");
         String data_scadenza = request.getParameter("expiryDate");
-        int cvv = Integer.parseInt(request.getParameter("cvv"));
+        String cvvString = request.getParameter("cvv");
 
-        Date data;
+        // Rimuoviamo gli spazi dal numero della carta
+        numero_carta = numero_carta.replace(" ", "");
+
+        // Converto il CVV da stringa a intero
+        int cvv;
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            java.util.Date parsedDate = sdf.parse(data_scadenza);
-            data = new Date(parsedDate.getTime());
-        } catch (ParseException e) {
-            throw new ServletException("Formato della data non valido", e);
+            cvv = Integer.parseInt(cvvString);
+        } catch (NumberFormatException e) {
+            throw new ServletException("Formato del CVV non valido", e);
         }
 
+        // Parsing della data di scadenza (MM/AA)
+        Date dataScadenza;
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/yy");
+            java.util.Date parsedDate = sdf.parse(data_scadenza);
+            dataScadenza = new Date(parsedDate.getTime());
+        } catch (ParseException e) {
+            throw new ServletException("Formato della data di scadenza non valido", e);
+        }
+
+        // Ottenere il carrello e altri dati di sessione
         HttpSession session = request.getSession();
         Cart cart = (Cart) session.getAttribute("cart");
         double totale = Double.parseDouble(request.getParameter("totale"));
 
+        // Ottenere la data di oggi
         LocalDate localDate = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String formattedDate = localDate.format(formatter);
-
         Date today;
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -63,52 +75,48 @@ public class CompletaAcquistoServlet extends HttpServlet {
             throw new ServletException("Formato della data non valido", e);
         }
 
+        // Ottenere l'utente dalla sessione
         PersonaBean utente = (PersonaBean) session.getAttribute("user");
 
-        // Creiamo l'ordine
-        OrdineBean ordine = new OrdineBean(totale, today, numero_carta, cvv, data, utente.getCf());
-
+        // Creare e salvare l'ordine
+        OrdineBean ordine = new OrdineBean(totale, today, numero_carta, cvv, dataScadenza, utente.getCf());
         OrdineDAO ordineDAO = new OrdineDAO();
         OpereAcquistateDAO opereDao = new OpereAcquistateDAO();
-
-        int idOrdine = 0; // Variabile per memorizzare l'ID generato dall'ordine
+        int idOrdine = 0;
 
         try {
-            // Salviamo l'ordine nel database e otteniamo l'ID generato
+            // Salvare l'ordine nel database e ottenere l'ID generato
             idOrdine = ordineDAO.doSaveInt(ordine);
-            System.out.println("Generated key=" + idOrdine); // Stampa l'ID generato nella console
+            System.out.println("Generated key=" + idOrdine);
 
-            // Salviamo le opere acquistate associate a questo ordine
+            // Salvare le opere acquistate
             HashMap<OperaBean, Integer> opere = cart.getProducts();
-
             for (Map.Entry<OperaBean, Integer> entry : opere.entrySet()) {
                 OperaBean opera = entry.getKey();
                 int quantity = entry.getValue();
-
                 OpereAcquistate operaAcquistata = new OpereAcquistate(idOrdine, opera.getNome(), opera.getPrezzo(), opera.getImmagine(), quantity);
 
                 try {
                     opereDao.doSave(operaAcquistata);
                 } catch (SQLException e) {
                     e.printStackTrace();
-                    // Gestisci l'errore nel salvataggio delle opere acquistate
+                    // Gestire l'errore nel salvataggio delle opere acquistate
                 }
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
-            // Gestisci l'errore nel salvataggio dell'ordine
+            // Gestire l'errore nel salvataggio dell'ordine
         }
 
-        // Svuota il carrello
+        // Svuotare il carrello
         session.removeAttribute("cart");
 
-        // Reindirizza alla pagina del carrello
+        // Reindirizzare alla pagina del carrello
         RequestDispatcher dispatcher = request.getRequestDispatcher("/view/carrello.jsp");
         dispatcher.forward(request, response);
     }
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Eventualmente gestisci il caso in cui la servlet sia chiamata tramite GET
         response.getWriter().append("Served at: ").append(request.getContextPath());
     }
 }

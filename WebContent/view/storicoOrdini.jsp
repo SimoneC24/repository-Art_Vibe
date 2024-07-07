@@ -12,7 +12,6 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #f2f2f2;
-    padding: 20px;
 }
 
 h1 {
@@ -24,6 +23,7 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    margin-bottom: 100px;
 }
 
 th, td {
@@ -65,7 +65,7 @@ tr:nth-child(odd) {
                     <th>Data Ordine</th>
                     <th>Numero Carta</th>
                     <th>Data Scadenza Carta</th>
-                    <th>Dettagli Ordini</th> <!-- Nuova colonna per il link -->
+                    <th>Dettagli Ordini</th>
                 </tr>
             </thead>
             <tbody>
@@ -95,6 +95,7 @@ tr:nth-child(odd) {
             </tbody>
         </table>
     </div>
+    
     <%@ include file="footer.jsp"%>
 </body>
 </html>

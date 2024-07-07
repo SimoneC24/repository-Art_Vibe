@@ -6,7 +6,6 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style-login-responsive.css">
 
 <style>
-/* Include the above CSS styles here */
 select {
     width: 100%;
     padding: 10px;
@@ -36,6 +35,8 @@ select option {
     padding: 10px;
 }
 </style>
+
+
 
 </head>
 <body>
@@ -70,11 +71,12 @@ select option {
                             <option value="Arte Preistorica">Arte Preistorica</option>
                             <option value="Arte Egizia">Arte Egizia</option>
                             <option value="Arte Greca Classica">Arte Greca Classica</option>
-                            <option value="Rrte Romana">Arte Romana</option>
+                            <option value="Arte Romana">Arte Romana</option>
                             <option value="Arte Bizantina">Arte Bizantina</option>
                             <option value="Romanico">Romanico</option>
                             <option value="Gotico">Gotico</option>
                             <option value="Rinascimento">Rinascimento</option>
+                            <option value="Modernismo">Modernismo</option>
                             <option value="Manierismo">Manierismo</option>
                             <option value="Barocco">Barocco</option>
                             <option value="Rococò">Rococò</option>
@@ -94,6 +96,7 @@ select option {
                             <option value="De Stijl">De Stijl</option>
                             <option value="Astrattismo">Astrattismo</option>
                             <option value="Arte Concettuale">Arte Concettuale</option>
+                            <option value="Arte ellenistica">Arte ellenistica</option>
                             <option value="Minimalismo">Minimalismo</option>
                             <option value="Primitivismo Nordico">Primitivismo nordico</option>
                             <option value="Pop Art">Pop Art</option>

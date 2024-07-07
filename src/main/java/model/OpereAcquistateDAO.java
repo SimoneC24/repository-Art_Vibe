@@ -120,7 +120,7 @@ public class OpereAcquistateDAO implements IBeanDAO<OpereAcquistate>{
 	}
 
 	@Override
-	public Collection doRetrieveAll(String order) throws SQLException {
+	public Collection doRetrieveAll() throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}

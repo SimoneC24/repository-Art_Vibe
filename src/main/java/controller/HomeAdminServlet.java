@@ -26,7 +26,7 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 		OperaDAO operaDAO = new OperaDAO();
 		
 		try {
-			opere = operaDAO.doRetrieveAll("");
+			opere = operaDAO.doRetrieveAll();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

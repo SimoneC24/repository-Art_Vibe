@@ -18,21 +18,31 @@ public class OperaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		int idOpera = Integer.parseInt(request.getParameter("id"));
-		OperaDAO operaDAO = new OperaDAO();
-		OperaBean opera = null;
-		
-		try {
-			opera = operaDAO.doRetrieveByKey(idOpera);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
-		request.setAttribute("opera", opera);
-		
-		RequestDispatcher rd = getServletContext().getRequestDispatcher("/view/opera.jsp");
-		rd.forward(request, response);
+	    String idParam = request.getParameter("id");
+	    if (idParam == null || idParam.isEmpty()) {
+	        response.sendError(HttpServletResponse.SC_BAD_REQUEST, "ID dell'opera non valido o assente.");
+	        return;
+	    }
+
+	    int idOpera = Integer.parseInt(idParam);
+	    OperaDAO operaDAO = new OperaDAO();
+	    OperaBean opera = null;
+
+	    try {
+	        opera = operaDAO.doRetrieveByKey(idOpera);
+	        if (opera == null) {
+	            response.sendError(HttpServletResponse.SC_NOT_FOUND, "Opera non trovata.");
+	            return;
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Errore nel recupero dell'opera.");
+	        return;
+	    }
+
+	    request.setAttribute("opera", opera);
+	    RequestDispatcher rd = getServletContext().getRequestDispatcher("/view/opera.jsp");
+	    rd.forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

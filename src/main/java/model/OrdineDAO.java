@@ -122,6 +122,72 @@ public class OrdineDAO implements IBeanDAO<OrdineBean> {
 	    return ordini;
 	}
 	
+	
+	public List<OrdineBean> doRetrieveByFilter(String startDate, String endDate, String clientId) throws SQLException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        List<OrdineBean> ordini = new ArrayList<>();
+
+        StringBuilder query = new StringBuilder("SELECT * FROM ordine WHERE 1=1");
+        
+        if (startDate != null && !startDate.isEmpty()) {
+            query.append(" AND data_ordine >= ?");
+        }
+        if (endDate != null && !endDate.isEmpty()) {
+            query.append(" AND data_ordine <= ?");
+        }
+        if (clientId != null && !clientId.isEmpty()) {
+            query.append(" AND id_utente = ?");
+        }
+
+        try {
+            connection = ds.getConnection();
+            preparedStatement = connection.prepareStatement(query.toString());
+            
+            int paramIndex = 1;
+
+            if (startDate != null && !startDate.isEmpty()) {
+                preparedStatement.setDate(paramIndex++, java.sql.Date.valueOf(startDate));
+            }
+            if (endDate != null && !endDate.isEmpty()) {
+                preparedStatement.setDate(paramIndex++, java.sql.Date.valueOf(endDate));
+            }
+            if (clientId != null && !clientId.isEmpty()) {
+                preparedStatement.setString(paramIndex++, clientId);
+            }
+
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                OrdineBean ordine = new OrdineBean(
+                    resultSet.getDouble("totale"),
+                    resultSet.getDate("data_ordine"),
+                    resultSet.getString("numero_carta"),
+                    resultSet.getInt("cvv_carta"),
+                    resultSet.getDate("data_scadenza_carta"),
+                    resultSet.getString("ID_utente")
+                );
+                
+                ordine.setId_ordine(resultSet.getInt("ID_ordine"));
+                ordini.add(ordine);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return ordini;
+    }
+	
 
 	@Override
 	public boolean doDelete(int code) throws SQLException {
@@ -136,10 +202,47 @@ public class OrdineDAO implements IBeanDAO<OrdineBean> {
 	}
 
 	@Override
-	public Collection<OrdineBean> doRetrieveAll(String order) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public List<OrdineBean> doRetrieveAll() throws SQLException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        List<OrdineBean> ordini = new ArrayList<>();
+
+        String selectSQL = "SELECT * FROM ordine";
+
+        try {
+            connection = ds.getConnection();
+            preparedStatement = connection.prepareStatement(selectSQL);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                OrdineBean ordine = new OrdineBean(
+                    resultSet.getDouble("totale"),
+                    resultSet.getDate("data_ordine"),
+                    resultSet.getString("numero_carta"),
+                    resultSet.getInt("cvv_carta"),
+                    resultSet.getDate("data_scadenza_carta"),
+                    resultSet.getString("ID_utente")
+                );
+                
+                ordine.setId_ordine(resultSet.getInt("ID_ordine"));
+                ordini.add(ordine);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (resultSet != null) {
+                resultSet.close();
+            }
+            if (preparedStatement != null) {
+                preparedStatement.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+        }
+        return ordini;
+    }
 
 	@Override
 	public void doUpdate(OrdineBean bean) throws SQLException {

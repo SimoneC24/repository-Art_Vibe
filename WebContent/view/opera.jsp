@@ -139,42 +139,53 @@ footer {
 	<%@ include file="navbar.jsp"%>
 
 	<%
-	OperaBean opera = (OperaBean) request.getAttribute("opera");
-	%>
-
-	<div class="main-content">
-		<div class="opera-details">
-			<div class="opera-image">
-				<img
-					src="data:image/jpeg;base64, <%=Base64.getEncoder().encodeToString(opera.getImmagine())%>"
-					alt="<%=opera.getNome()%>">
-			</div>
-			<div class="opera-info">
-				<h2><%=opera.getNome()%></h2>
-				<p>
-					<strong>Artista:</strong>
-					<%=opera.getArtista()%></p>
-				<p>
-					<strong>Stile:</strong>
-					<%=opera.getStile()%></p>
-				<p>
-					<strong>Data Creazione:</strong>
-					<%=formatDate(opera.getDataCreazione())%></p>
-				<p>
-					<strong>Prezzo:</strong>
-					<%=opera.getPrezzo()%>
-					&euro;
-				</p>
-				<p>
-					<strong>Descrizione:</strong>
-					<%=opera.getDescrizione()%></p>
-				<form method="POST"
-					action="${ pageContext.request.contextPath }/cartServlet?action=aggiungi&id=<%= opera.getId()%>">
-					<input type="submit" class="button" value="Aggiungi al Carrello">
-				</form>
-			</div>
-		</div>
-	</div>
+OperaBean opera = (OperaBean) request.getAttribute("opera");
+if (opera != null) {
+%>
+    <div class="main-content">
+        <div class="opera-details">
+            <div class="opera-image">
+                <img
+                    src="data:image/jpeg;base64, <%=Base64.getEncoder().encodeToString(opera.getImmagine())%>"
+                    alt="<%=opera.getNome()%>">
+            </div>
+            <div class="opera-info">
+                <h2><%=opera.getNome()%></h2>
+                <p>
+                    <strong>Artista:</strong>
+                    <%=opera.getArtista()%></p>
+                <p>
+                    <strong>Stile:</strong>
+                    <%=opera.getStile()%></p>
+                <p>
+                    <strong>Data Creazione:</strong>
+                    <%=formatDate(opera.getDataCreazione())%></p>
+                <p>
+                    <strong>Prezzo:</strong>
+                    <%=opera.getPrezzo()%>
+                    &euro;
+                </p>
+                <p>
+                    <strong>Descrizione:</strong>
+                    <%=opera.getDescrizione()%></p>
+                <form method="POST"
+                    action="${ pageContext.request.contextPath }/cartServlet?action=aggiungi&id=<%= opera.getId()%>">
+                    <input type="submit" class="button" value="Aggiungi al Carrello">
+                </form>
+            </div>
+        </div>
+    </div>
+<%
+} else {
+%>
+    <div class="main-content">
+        <div class="opera-details">
+            <p>L'opera non è disponibile o non esiste.</p>
+        </div>
+    </div>
+<%
+}
+%>
 
 	<%@ include file="footer.jsp"%>
 </body>

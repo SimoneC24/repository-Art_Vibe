@@ -13,6 +13,10 @@
 </head>
 
 <style>
+body {
+	background-color: white;
+}
+
 .artwork img {
 	transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
 }
@@ -24,14 +28,14 @@
 }
 
 .admin-nav {
-    background: linear-gradient(to right, #8100f4, #350055);
-    color: white;
-    padding: 15px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
-    margin: 80px auto 0px auto;
-    max-width: 90%;
+	background: linear-gradient(to right, #8100f4, #350055);
+	color: white;
+	padding: 15px;
+	text-align: center;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	border-radius: 8px;
+	margin: 80px auto 0px auto;
+	max-width: 90%;
 }
 
 .admin-nav a {
@@ -67,9 +71,9 @@
 }
 
 .artworks-admin {
-    width: 98%;
-    display: flex;
-    flex-wrap: wrap;
+	width: 98%;
+	display: flex;
+	flex-wrap: wrap;
 }
 </style>
 
@@ -79,13 +83,13 @@
 	<!-- Admin Navigation Bar -->
 	<div class="admin-nav">
 		<a href="${pageContext.request.contextPath}/view/aggiungiOpera.jsp">Aggiungi
-			Opera</a> <a
-			href="${pageContext.request.contextPath}/view/visualizzaOrdini.jsp">Storico
+			Opera</a> <a href="${pageContext.request.contextPath}/storicoOrdiniAdmin">Storico
 			Ordini</a>
 	</div>
 
 	<!-- Main Content Section -->
 	<div class="main-content">
+
 		<section class="artworks-admin">
 			<%
 			Collection<OperaBean> opere = (Collection<OperaBean>) request.getAttribute("opere");

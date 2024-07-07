@@ -31,15 +31,12 @@ public class RegistrazioneServlet extends HttpServlet {
         PersonaDAO personaDAO = new PersonaDAO();
 
         try {
-            // Salvataggio della persona nel database
+
             personaDAO.doSave(persona);
 
-            // Messaggio di successo
-            System.out.println("Registrazione avvenuta con successo per l'utente: " + email);
-            response.getWriter().println("Registrazione avvenuta con successo!");
+            response.sendRedirect(request.getContextPath() + "/home");
 
         } catch (SQLException e) {
-            // Messaggio di errore
             System.out.println("Errore durante la registrazione per l'utente: " + email + " - " + e.getMessage());
             response.getWriter().println("Errore durante la registrazione: " + e.getMessage());
         }

@@ -8,8 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Modifica Opera</title>
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/style-login-responsive.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style_form.css">
 <style>
 .nome-cognome-intern input[type="number"], .nome-cognome-intern textarea
 	{

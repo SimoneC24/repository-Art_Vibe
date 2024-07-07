@@ -135,7 +135,7 @@ public class PersonaDAO implements IBeanDAO<PersonaBean> {
 	}
 
 	@Override
-	public Collection<PersonaBean> doRetrieveAll(String order) throws SQLException {
+	public Collection<PersonaBean> doRetrieveAll() throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}

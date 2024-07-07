@@ -6,12 +6,9 @@
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/owl.carousel.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/owl.theme.default.min.css">
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/owl.carousel.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/owl.theme.default.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap">
 
 <style type="text/css">
 .item {

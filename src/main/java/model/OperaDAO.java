@@ -134,7 +134,7 @@ public class OperaDAO implements IBeanDAO<OperaBean> {
 	}
 
 	@Override
-	public Collection<OperaBean> doRetrieveAll(String order) throws SQLException {
+	public Collection<OperaBean> doRetrieveAll() throws SQLException {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		Collection<OperaBean> opere = new ArrayList<>();
@@ -148,9 +148,13 @@ public class OperaDAO implements IBeanDAO<OperaBean> {
 			ResultSet rs = preparedStatement.executeQuery();
 
 			while (rs.next()) {
-				OperaBean opera = new OperaBean(rs.getString("Nome"), rs.getDouble("Prezzo"),
-						rs.getString("Stile"), rs.getString("Artista"), rs.getDate("data_creazione"),
-						rs.getBytes("Immagine"), // Retrieve immagine as BLOB
+				OperaBean opera = new OperaBean(
+						rs.getString("Nome"), 
+						rs.getDouble("Prezzo"),
+						rs.getString("Stile"), 
+						rs.getString("Artista"), 
+						rs.getDate("data_creazione"),
+						rs.getBytes("Immagine"),
 						rs.getString("Descrizione"));
 				opera.setId(rs.getInt("ID_opera"));
 				opere.add(opera);
@@ -229,6 +233,7 @@ public class OperaDAO implements IBeanDAO<OperaBean> {
 	                rs.getBytes("Immagine"),
 	                rs.getString("Descrizione")
 	            );
+	            opera.setId(rs.getInt("ID_opera"));	            
 	            opere.add(opera);
 	        }
 	    } catch (SQLException e) {
@@ -268,11 +273,16 @@ public class OperaDAO implements IBeanDAO<OperaBean> {
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
-                OperaBean opera = new OperaBean(rs.getString("Nome"), rs.getDouble("Prezzo"),
-                        rs.getString("Stile"), rs.getString("Artista"), rs.getDate("data_creazione"),
-                        rs.getBytes("Immagine"), // Retrieve immagine as BLOB
+                OperaBean opera = new OperaBean(
+                		rs.getString("Nome"), 
+                		rs.getDouble("Prezzo"),
+                        rs.getString("Stile"), 
+                        rs.getString("Artista"), 
+                        rs.getDate("data_creazione"),
+                        rs.getBytes("Immagine"),
                         rs.getString("Descrizione"));
-                opere.add(opera);
+                opera.setId(rs.getInt("ID_opera"));	
+                opere.add(opera); 
             }
 
         } catch (SQLException e) {

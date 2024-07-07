@@ -33,17 +33,17 @@ public class LoginServlet extends HttpServlet {
         }
 
         if (p == null) {
-            // Gestione dell'errore di autenticazione
-            System.out.println("Errore di autenticazione");
-            // Puoi reindirizzare a una pagina di errore o mostrare un messaggio
-            response.sendRedirect(request.getContextPath() + "/view/loginError.jsp");
-        } else {
-            // Memorizza l'utente e il ruolo nella sessione
-            HttpSession session = request.getSession();
-            session.setAttribute("user", p);  // Memorizza l'oggetto utente nella sessione
-            session.setAttribute("role", p.getRole());  // Memorizza il ruolo nella sessione
 
-            // Redirigi in base al ruolo
+            request.setAttribute("errorMessage", "Email o password errati, per favore riprova.");
+
+            request.getRequestDispatcher("/view/login.jsp").forward(request, response);
+        } else {
+
+            HttpSession session = request.getSession();
+            session.setAttribute("user", p); 
+            session.setAttribute("role", p.getRole());
+
+
             if ("admin".equalsIgnoreCase(p.getRole())) {
                 response.sendRedirect(request.getContextPath() + "/homeAdmin");
             } else {
