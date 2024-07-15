@@ -3,7 +3,6 @@ html, body {
     margin: 0;
     padding: 0;
     height: 100%;
-    background-color: #00292d;
 }
 
 /* Stili per il body */
@@ -19,7 +18,6 @@ body {
     display: flex;
     flex: 1;
     padding: 20px;
-    background-color: #00292d;
 }
 
 /* Sidebar */

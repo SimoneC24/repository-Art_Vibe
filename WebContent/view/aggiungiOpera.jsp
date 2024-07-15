@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Aggiungi Opera</title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style-login-responsive.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style_form.css">
 
 <style>
 select {

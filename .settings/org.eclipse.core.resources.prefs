@@ -1,6 +1,8 @@
 eclipse.preferences.version=1
+encoding//WebContent/view/carrello.jsp=UTF-8
 encoding//WebContent/view/checkout.jsp=UTF-8
 encoding//WebContent/view/home.jsp=UTF-8
+encoding//WebContent/view/homeAdmin.jsp=UTF-8
 encoding//WebContent/view/navbar.jsp=UTF-8
 encoding//WebContent/view/opera.jsp=UTF-8
 encoding/<project>=UTF-8

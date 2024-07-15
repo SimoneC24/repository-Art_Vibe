@@ -12,7 +12,7 @@
 <style>
 body {
 	font-family: Arial, sans-serif;
-	background-color: #ffffff;
+	background-color: #ccc;
 	margin: 0;
 	padding: 0;
 }
@@ -33,7 +33,7 @@ h1 {
 }
 
 .sidebar {
-	background: #f9f9f9;
+	background: #e9e9e9;
 	padding: 20px;
 	border-radius: 10px;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -52,7 +52,8 @@ h1 {
 }
 
 .sidebar form label {
-	margin-bottom: 8px;
+	margin-bottom: 2px;
+	margin-top: 20px;
 	color: #666;
 	font-weight: bold;
 }
@@ -93,8 +94,7 @@ h1 {
 table {
 	width: 100%;
 	border-collapse: collapse;
-	margin-top: 20px;
-	background-color: #ffffff;
+	background-color: #ddd;
 }
 
 th, td {

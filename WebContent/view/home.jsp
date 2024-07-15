@@ -12,6 +12,10 @@
 </head>
 
 <style>
+body{
+	background-color: #00292d;
+}
+
 .artwork img {
 	transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
 }

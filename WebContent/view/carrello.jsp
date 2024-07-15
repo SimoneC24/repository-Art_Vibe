@@ -25,7 +25,7 @@
 					<th>Nome</th>
 					<th>Artista</th>
 					<th>Prezzo</th>
-					<th>Quantit‡</th>
+					<th>Quantit√†</th>
 					<th>Totale</th>
 					<th>Azioni</th>
 				</tr>
@@ -35,7 +35,7 @@
 				Cart cart = (Cart) session.getAttribute("cart");
 				double totale = 0;
 				if (cart != null && !cart.getProducts().isEmpty()) {
-					for (Map.Entry<OperaBean, Integer> entry : cart.getProducts().entrySet()) { //restituisce un insieme Set di tutte coppie chiave-valore dei prodotto e quantit‡
+					for (Map.Entry<OperaBean, Integer> entry : cart.getProducts().entrySet()) { //restituisce un insieme Set di tutte coppie chiave-valore dei prodotto e quantit√†
 						OperaBean opera = entry.getKey();
 						int quantity = entry.getValue();
 						double subtotale = opera.getPrezzo() * quantity;
@@ -74,7 +74,7 @@
 				} else {
 				%>
 				<tr>
-					<td colspan="7">Il carrello Ë vuoto</td>
+					<td colspan="7">Il carrello e' vuoto</td>
 				</tr>
 				<%
 				}

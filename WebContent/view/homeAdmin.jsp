@@ -8,8 +8,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin Home Page</title>
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/style_home.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style_home.css">
 </head>
 
 <style>
@@ -121,7 +120,7 @@ body {
 					method="post" style="display: inline;">
 					<input type="hidden" name="id" value="<%=opera.getId()%>">
 					<input type="submit" class="button-delete" value="Elimina"
-						onclick="return confirm('Sei sicuro di voler eliminare questa opera? (Questa azione è irreversibile)');">
+						onclick="return confirm('Sei sicuro di voler eliminare questa opera? (Questa azione Ã¨ irreversibile)');">
 				</form>
 			</div>
 			<%

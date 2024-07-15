@@ -6,8 +6,31 @@
     <link rel="stylesheet" type="text/css" href="${ pageContext.request.contextPath }/css/style_login.css">
     <!-- Include Font Awesome for the icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMgI7mU5IEUVqC8ZQo6S9e4cHsmqXG1jO4kXqjM" crossorigin="anonymous">
-</head>
+    <style>
+        .error-message {
+            display: none;
+            color: #d9534f; /* Red color for error */
+            background-color: #f2dede; /* Light red background */
+            border: 1px solid #ebccd1; /* Border matching the background */
+            border-radius: 4px; /* Rounded corners */
+            padding: 15px;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+            transition: all 0.3s ease-in-out; /* Smooth transition */
+        }
 
+        .error-message.show {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out; /* Fade-in effect */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
 <body>
     <%@include file="navbar.jsp" %>
     <section class="section">
@@ -39,7 +62,7 @@
                     <p>Don't have an account?</p>
                 </div>
                 <div class="button-margin">
-					<a href="${ pageContext.request.contextPath }/view/registrazione.jsp" class="button">Create new</a>
+                    <a href="registrazione.jsp" class="button">Create new</a>
                 </div>
             </form>
         </div>
