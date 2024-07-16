@@ -4,6 +4,7 @@ import model.OrdineBean;
 import model.OrdineDAO;
 import model.PersonaBean;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -40,8 +41,10 @@ public class StoricoOrdiniServlet extends HttpServlet {
             request.setAttribute("ordini", ordini);
             request.getRequestDispatcher("/view/storicoOrdini.jsp").forward(request, response);
         } catch (SQLException e) {
-            e.printStackTrace();
-            response.getWriter().append("Errore durante il recupero degli ordini: " + e.getMessage());
+        	request.setAttribute("message", "Errore durante il recupero degli ordini");
+	    	RequestDispatcher rd = getServletContext().getRequestDispatcher("/view/error.jsp");
+	        rd.forward(request, response);
+	        return;
         }
     }
 }

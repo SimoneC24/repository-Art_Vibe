@@ -2,11 +2,15 @@ package controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import model.*;
 
 @WebServlet("/modificaOperaServlet")
@@ -18,6 +22,15 @@ public class ModificaOperaServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	
+    	HttpSession session = request.getSession();
+    	if (session.getAttribute("role") == null || !session.getAttribute("role").equals("admin")) {
+            request.setAttribute("message", "Pagina eccessibile solo agli admin");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/view/error.jsp");
+            rd.forward(request, response);
+            return;
+        }
+    	
         try {
             String idStr = request.getParameter("id");
             String prezzoStr = request.getParameter("prezzo");
@@ -59,10 +72,16 @@ public class ModificaOperaServlet extends HttpServlet {
             }
 
         } catch (NumberFormatException e) {
-            response.getWriter().println("Formato non valido per prezzo o ID.");
+            handleException(request, response, "Formato non valido per prezzo o ID.");
         } catch (SQLException e) {
-            throw new ServletException("Errore durante la modifica dell'opera", e);
+        	handleException(request, response, "Errore durante la modifica dell'opera");
         }
+    }
+    
+    private void handleException(HttpServletRequest request, HttpServletResponse response, String message)
+            throws ServletException, IOException {
+        request.setAttribute("message", message);
+        request.getRequestDispatcher("/view/error.jsp").forward(request, response);
     }
 
 

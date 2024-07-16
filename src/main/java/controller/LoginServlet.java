@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,7 +30,10 @@ public class LoginServlet extends HttpServlet {
         try {
             p = PersonaDAO.doRetriveByEmailPassword(email, password);
         } catch (SQLException e) {
-            e.printStackTrace();
+        	 request.setAttribute("message", "Email o password errati, per favore riprova.");
+             RequestDispatcher rd = getServletContext().getRequestDispatcher("/view/error.jsp");
+             rd.forward(request, response);
+             return;
         }
 
         if (p == null) {

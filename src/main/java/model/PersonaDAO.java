@@ -109,7 +109,7 @@ public class PersonaDAO implements IBeanDAO<PersonaBean> {
 	        preparedStatement2.executeUpdate();
 	        
 	    } catch (SQLException e) {
-	        throw new RuntimeException(e);
+	    	throw new SQLException();
 	    } finally {
 	        try {
 	            if (preparedStatement != null)

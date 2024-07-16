@@ -31,6 +31,15 @@ public class CompletaAcquistoServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	
+    	HttpSession session = request.getSession();
+        if (session.getAttribute("role") == null || session.getAttribute("role").equals("admin")) {
+            request.setAttribute("message", "Questa pagina è accessibile solo agli utenti registrati");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/view/error.jsp");
+            rd.forward(request, response);
+            return;
+        }
+        
         // Otteniamo i dati di input
         String numero_carta = request.getParameter("cardNumber");
         String data_scadenza = request.getParameter("expiryDate");
@@ -58,7 +67,6 @@ public class CompletaAcquistoServlet extends HttpServlet {
         }
 
         // Ottenere il carrello e altri dati di sessione
-        HttpSession session = request.getSession();
         Cart cart = (Cart) session.getAttribute("cart");
         double totale = Double.parseDouble(request.getParameter("totale"));
 
@@ -117,6 +125,6 @@ public class CompletaAcquistoServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.getWriter().append("Served at: ").append(request.getContextPath());
+        doPost(request, response);
     }
 }

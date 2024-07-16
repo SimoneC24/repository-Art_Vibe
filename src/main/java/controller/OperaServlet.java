@@ -35,8 +35,9 @@ public class OperaServlet extends HttpServlet {
 	            return;
 	        }
 	    } catch (SQLException e) {
-	        e.printStackTrace();
-	        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Errore nel recupero dell'opera.");
+	    	request.setAttribute("message", "Errore nel recupero dell'opera.");
+	    	RequestDispatcher rd = getServletContext().getRequestDispatcher("/view/error.jsp");
+	        rd.forward(request, response);
 	        return;
 	    }
 
@@ -46,8 +47,6 @@ public class OperaServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
 }

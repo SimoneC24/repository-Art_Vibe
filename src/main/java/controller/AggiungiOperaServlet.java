@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebInitParam;
@@ -16,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import model.OperaBean;
@@ -39,57 +41,68 @@ public class AggiungiOperaServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Ottieni i parametri dal form
-        String nome = request.getParameter("nome");
-        String prezzoStr = request.getParameter("prezzo");
-        String stile = request.getParameter("stile");
-        String artista = request.getParameter("artista");
-        String dataStr = request.getParameter("data");
-        String descrizione = request.getParameter("descrizione");
-        Part filePart = request.getPart("immagine");
-
-        // Salva il file sull'hard disk
-        String fileName = extractFileName(filePart);
-        String savePath = getServletContext().getRealPath("") + File.separator + SAVE_DIR;
-        File fileSaveDir = new File(savePath);
-        if (!fileSaveDir.exists()) {
-            fileSaveDir.mkdir();
+    		
+    	HttpSession session = request.getSession();
+    	if (session.getAttribute("role") == null || !session.getAttribute("role").equals("admin")) {
+            request.setAttribute("message", "Questa pagina è accessibile solo agli admin");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/view/error.jsp");
+            rd.forward(request, response);
+            return;
         }
-        filePart.write(savePath + File.separator + fileName);
-
-        // Leggi il file come array di byte
-        byte[] immagineBytes = extractBytesFromFile(new File(savePath + File.separator + fileName));
-
-        // Conversione del prezzo da stringa a double
-        double prezzo = 0.0;
+    	
         try {
-            prezzo = Double.parseDouble(prezzoStr);
-        } catch (NumberFormatException e) {
-            throw new ServletException("Formato del prezzo non valido", e);
-        }
+            // Ottieni i parametri dal form
+            String nome = request.getParameter("nome");
+            String prezzoStr = request.getParameter("prezzo");
+            String stile = request.getParameter("stile");
+            String artista = request.getParameter("artista");
+            String dataStr = request.getParameter("data");
+            String descrizione = request.getParameter("descrizione");
+            Part filePart = request.getPart("immagine");
 
-        // Conversione della data da stringa a oggetto Date
-        Date data;
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            java.util.Date parsedDate = sdf.parse(dataStr);
-            data = new Date(parsedDate.getTime());
-        } catch (ParseException e) {
-            throw new ServletException("Formato della data non valido", e);
-        }
+            // Salva il file sull'hard disk
+            String fileName = extractFileName(filePart);
+            String savePath = getServletContext().getRealPath("") + File.separator + SAVE_DIR;
+            File fileSaveDir = new File(savePath);
+            if (!fileSaveDir.exists()) {
+                fileSaveDir.mkdir();
+            }
+            filePart.write(savePath + File.separator + fileName);
 
-        // Creazione del bean OperaBean con i dati ottenuti
-        OperaBean nuovaOpera = new OperaBean(nome, prezzo, stile, artista, data, immagineBytes, descrizione);
+            // Leggi il file come array di byte
+            byte[] immagineBytes = extractBytesFromFile(new File(savePath + File.separator + fileName));
 
-        // Salvataggio nel database tramite OperaDAO
-        OperaDAO operaDAO = new OperaDAO();
-        try {
+            // Conversione del prezzo da stringa a double
+            double prezzo = 0.0;
+            try {
+                prezzo = Double.parseDouble(prezzoStr);
+            } catch (NumberFormatException e) {
+                throw new ServletException("Formato del prezzo non valido", e);
+            }
+
+            // Conversione della data da stringa a oggetto Date
+            Date data;
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                java.util.Date parsedDate = sdf.parse(dataStr);
+                data = new Date(parsedDate.getTime());
+            } catch (ParseException e) {
+                throw new ServletException("Formato della data non valido", e);
+            }
+
+            // Creazione del bean OperaBean con i dati ottenuti
+            OperaBean nuovaOpera = new OperaBean(nome, prezzo, stile, artista, data, immagineBytes, descrizione);
+
+            // Salvataggio nel database tramite OperaDAO
+            OperaDAO operaDAO = new OperaDAO();
             operaDAO.doSave(nuovaOpera);
-            // Operazione riuscita, reindirizziamo alla pagina di successo o lista opere
             response.sendRedirect(request.getContextPath() + "/view/aggiungiOpera.jsp");
         } catch (SQLException e) {
-            // Gestione dell'errore
-            throw new ServletException("Errore durante l'inserimento dell'opera nel database", e);
+            handleException(request, response, "Errore durante l'inserimento dell'opera nel database");
+        } catch (ServletException e) {
+            handleException(request, response, e.getMessage());
+        } catch (IOException e) {
+            handleException(request, response, "Errore durante la lettura del file");
         }
     }
 
@@ -110,7 +123,7 @@ public class AggiungiOperaServlet extends HttpServlet {
         byte[] buf = new byte[1024];
         try {
             for (int readNum; (readNum = fis.read(buf)) != -1;) {
-                bos.write(buf, 0, readNum); //no doubt here is 0
+                bos.write(buf, 0, readNum);
             }
         } catch (IOException e) {
             throw new IOException("Errore durante la lettura del file", e);
@@ -119,5 +132,12 @@ public class AggiungiOperaServlet extends HttpServlet {
         fis.close();
         bos.close();
         return bytes;
+    }
+
+    
+    private void handleException(HttpServletRequest request, HttpServletResponse response, String message)
+            throws ServletException, IOException {
+        request.setAttribute("message", message);
+        request.getRequestDispatcher("/view/error.jsp").forward(request, response);
     }
 }

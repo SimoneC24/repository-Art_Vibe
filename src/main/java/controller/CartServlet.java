@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,7 +19,16 @@ public class CartServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
+    	
+    	HttpSession session = request.getSession();
+        if (session.getAttribute("role") == null || session.getAttribute("role").equals("admin")) {
+            request.setAttribute("message", "Il carrello è accessibile solo agli utenti registrati");
+            RequestDispatcher rd = getServletContext().getRequestDispatcher("/view/error.jsp");
+            rd.forward(request, response);
+            return;
+        }
+    	
+        
         Cart cart = (Cart) session.getAttribute("cart");
         if (cart == null) {
             cart = new Cart();
@@ -65,11 +73,13 @@ public class CartServlet extends HttpServlet {
                         cart.clear();
                         break;
                     default:
-                        // Gestione per azioni non valide
-                        break;
+                        handleException(request, response, "Azione non valida: " + action);
+                        return;
                 }
-            } catch (NumberFormatException | SQLException e) {
-                e.printStackTrace(); // Gestione degli errori
+            } catch (NumberFormatException e) {
+                handleException(request, response, "ID del prodotto non valido");
+            } catch (SQLException e) {
+                handleException(request, response, "Errore durante il recupero dei dati dal database");
             }
         }
 
@@ -81,5 +91,12 @@ public class CartServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
+    }
+
+    
+    private void handleException(HttpServletRequest request, HttpServletResponse response, String message)
+    		throws ServletException, IOException {
+        request.setAttribute("message", message);
+        request.getRequestDispatcher("/view/error.jsp").forward(request, response);
     }
 }

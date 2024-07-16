@@ -15,11 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 import model.OperaBean;
 import model.OperaDAO;
 
-@WebServlet(name = "home", urlPatterns = "/home")
+@WebServlet(name = "HomeServlet", urlPatterns = "/home")
 public class HomeServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private static final long serialVersionUID = 1L;
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String searchQuery = request.getParameter("search");
         String minPriceParam = request.getParameter("minPrice");
         String maxPriceParam = request.getParameter("maxPrice");
@@ -39,8 +39,12 @@ public class HomeServlet extends HttpServlet {
             } else {
                 opere = operaDAO.doRetrieveAll();
             }
+        } catch (NumberFormatException e) {
+            handleException(request, response, "Formato prezzo non valido");
+            return;
         } catch (SQLException e) {
-            e.printStackTrace();
+            handleException(request, response, "Errore nel database");
+            return;
         }
 
         request.setAttribute("opere", opere);
@@ -50,5 +54,11 @@ public class HomeServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
+    }
+
+    private void handleException(HttpServletRequest request, HttpServletResponse response, String message)
+            throws ServletException, IOException {
+        request.setAttribute("message", message);
+        request.getRequestDispatcher("/view/error.jsp").forward(request, response);
     }
 }

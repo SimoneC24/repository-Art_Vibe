@@ -25,7 +25,7 @@
 					<th>Nome</th>
 					<th>Artista</th>
 					<th>Prezzo</th>
-					<th>Quantità</th>
+					<th>Quantit&agrave;</th>
 					<th>Totale</th>
 					<th>Azioni</th>
 				</tr>

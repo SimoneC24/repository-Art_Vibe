@@ -74,7 +74,7 @@ public class OrdineDAO implements IBeanDAO<OrdineBean> {
             }
         }
 
-        return generatedId; // Restituisci l'ID generato
+        return generatedId;
     }
 	
 	
