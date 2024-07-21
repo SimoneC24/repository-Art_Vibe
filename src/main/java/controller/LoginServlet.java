@@ -30,7 +30,7 @@ public class LoginServlet extends HttpServlet {
         try {
             p = PersonaDAO.doRetriveByEmailPassword(email, password);
         } catch (SQLException e) {
-        	 request.setAttribute("message", "Email o password errati, per favore riprova.");
+        	 request.setAttribute("message", "Si è verificato un errore.");
              RequestDispatcher rd = getServletContext().getRequestDispatcher("/view/error.jsp");
              rd.forward(request, response);
              return;

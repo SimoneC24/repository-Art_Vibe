@@ -8,6 +8,7 @@
 </head>
 <body>
     <%@include file="navbar.jsp" %>
+    
     <section class="registrazione-section">
         <div class="container">
             <div class="text-center">

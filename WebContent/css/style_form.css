@@ -283,6 +283,10 @@ input.error {
     textarea{
 		width: 300px;
 	}  
+	
+	.registrazione-section{
+		margin-top: 200px;
+	}
 }
 
 

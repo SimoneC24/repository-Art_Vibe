@@ -35,7 +35,6 @@ public class AggiungiOperaServlet extends HttpServlet {
     private static String SAVE_DIR = "";
 
     public void init() throws ServletException {
-        // Ottiene la directory di salvataggio dal parametro di inizializzazione
         SAVE_DIR = getServletConfig().getInitParameter("aggiungi-opera");
     }
 
@@ -51,7 +50,6 @@ public class AggiungiOperaServlet extends HttpServlet {
         }
     	
         try {
-            // Ottieni i parametri dal form
             String nome = request.getParameter("nome");
             String prezzoStr = request.getParameter("prezzo");
             String stile = request.getParameter("stile");
@@ -60,7 +58,6 @@ public class AggiungiOperaServlet extends HttpServlet {
             String descrizione = request.getParameter("descrizione");
             Part filePart = request.getPart("immagine");
 
-            // Salva il file sull'hard disk
             String fileName = extractFileName(filePart);
             String savePath = getServletContext().getRealPath("") + File.separator + SAVE_DIR;
             File fileSaveDir = new File(savePath);

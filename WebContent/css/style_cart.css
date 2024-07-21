@@ -164,6 +164,10 @@ h1 {
      .svuota-cart-button {
         padding: 8px 16px;
     }
+    
+    .main-content {
+    margin-top: 200px;
+}
 }
 
 @media (max-width: 480px) {

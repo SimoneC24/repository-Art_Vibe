@@ -4,25 +4,24 @@
     <meta charset="UTF-8">
     <title>Login Art Vibe</title>
     <link rel="stylesheet" type="text/css" href="${ pageContext.request.contextPath }/css/style_login.css">
-    <!-- Include Font Awesome for the icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMgI7mU5IEUVqC8ZQo6S9e4cHsmqXG1jO4kXqjM" crossorigin="anonymous">
     <style>
         .error-message {
             display: none;
-            color: #d9534f; /* Red color for error */
-            background-color: #f2dede; /* Light red background */
-            border: 1px solid #ebccd1; /* Border matching the background */
-            border-radius: 4px; /* Rounded corners */
+            color: #d9534f;
+            background-color: #f2dede;
+            border: 1px solid #ebccd1; 
+            border-radius: 4px;
             padding: 15px;
             margin-top: 20px;
             text-align: center;
             font-weight: bold;
-            transition: all 0.3s ease-in-out; /* Smooth transition */
+            transition: all 0.3s ease-in-out;
         }
 
         .error-message.show {
             display: block;
-            animation: fadeIn 0.5s ease-in-out; /* Fade-in effect */
+            animation: fadeIn 0.5s ease-in-out;
         }
 
         @keyframes fadeIn {

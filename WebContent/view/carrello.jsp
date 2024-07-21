@@ -92,12 +92,18 @@
 
 		<%
 		if (cart != null && !cart.getProducts().isEmpty()) {
+		    if (role != null) {
 		%>
 		<form method="POST" action="${pageContext.request.contextPath}/checkout">
 			<input type="hidden" name="totale" value="<%=totale%>">
 			<button type="submit" class="checkout">Continua l'acquisto</button>
 		</form>
 		<%
+		    } else {
+		%>
+		<p>Per continuare l'acquisto, <a href="${pageContext.request.contextPath}/view/login.jsp">accedi al tuo account</a>.</p>
+		<%
+		    }
 		}
 		%>
 
@@ -108,8 +114,6 @@
 			<button type="submit" class="svuota-cart-button">Svuota Carrello</button>
 		</form>
 	</div>
-
-
 
 	<%@ include file="footer.jsp"%>
 </body>

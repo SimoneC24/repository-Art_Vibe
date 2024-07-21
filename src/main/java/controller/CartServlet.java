@@ -19,15 +19,16 @@ public class CartServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	
-    	HttpSession session = request.getSession();
-        if (session.getAttribute("role") == null || session.getAttribute("role").equals("admin")) {
-            request.setAttribute("message", "Il carrello è accessibile solo agli utenti registrati");
+        
+        HttpSession session = request.getSession();
+        Object role = session.getAttribute("role");
+
+        if (role != null && role.equals("admin")) {
+            request.setAttribute("message", "Il carrello non è accessibile agli admin");
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/view/error.jsp");
             rd.forward(request, response);
             return;
         }
-    	
         
         Cart cart = (Cart) session.getAttribute("cart");
         if (cart == null) {
@@ -95,7 +96,7 @@ public class CartServlet extends HttpServlet {
 
     
     private void handleException(HttpServletRequest request, HttpServletResponse response, String message)
-    		throws ServletException, IOException {
+            throws ServletException, IOException {
         request.setAttribute("message", message);
         request.getRequestDispatcher("/view/error.jsp").forward(request, response);
     }

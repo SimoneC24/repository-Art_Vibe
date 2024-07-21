@@ -108,7 +108,6 @@ public class CompletaAcquistoServlet extends HttpServlet {
                     opereDao.doSave(operaAcquistata);
                 } catch (SQLException e) {
                     e.printStackTrace();
-                    // Gestire l'errore nel salvataggio delle opere acquistate
                 }
             }
         } catch (SQLException e) {
